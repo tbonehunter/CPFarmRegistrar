@@ -11,6 +11,7 @@ namespace CPFarmRegistrar
     /// <summary>
     /// Scans installed Content Patcher content packs to detect mods that
     /// silently replace vanilla farm maps via Load actions.
+    /// Skips mods that already self-register in Data/AdditionalFarms.
     /// </summary>
     public class CPFarmDetector
     {
@@ -25,7 +26,8 @@ namespace CPFarmRegistrar
 
         /// <summary>
         /// Scans all installed CP content packs and returns a list of detected
-        /// farm map replacements.
+        /// farm map replacements. Mods that self-register in Data/AdditionalFarms
+        /// are excluded.
         /// </summary>
         public List<DetectedCPFarm> DetectCPFarmMods()
         {
@@ -54,7 +56,8 @@ namespace CPFarmRegistrar
                     {
                         string normalized = VanillaFarmMap.Normalize(target);
 
-                        if (!VanillaFarmMap.AssetToDisplayName.TryGetValue(normalized, out string replacedName))
+                        if (!VanillaFarmMap.AssetToDisplayName.TryGetValue(
+                            normalized, out string replacedName))
                             continue;
 
                         var entry = new DetectedCPFarm
@@ -62,7 +65,8 @@ namespace CPFarmRegistrar
                             UniqueModId = mod.Manifest.UniqueID,
                             ModName = mod.Manifest.Name,
                             Author = mod.Manifest.Author,
-                            Description = mod.Manifest.Description ?? $"Custom {replacedName} farm replacement.",
+                            Description = mod.Manifest.Description
+                                ?? $"Custom {replacedName} farm replacement.",
                             TargetMapAsset = normalized,
                             ReplacedFarmName = replacedName,
                             ContentPackDirectory = GetContentPackDirectory(mod)
@@ -77,16 +81,21 @@ namespace CPFarmRegistrar
             }
 
             if (detected.Count == 0)
-                Monitor.Log("No CP farm map replacements detected.", LogLevel.Info);
+                Monitor.Log(
+                    "No CP farm map replacements detected.",
+                    LogLevel.Info);
             else
-                Monitor.Log($"Detected {detected.Count} CP farm map replacement(s).", LogLevel.Info);
+                Monitor.Log(
+                    $"Detected {detected.Count} CP farm map replacement(s).",
+                    LogLevel.Info);
 
             return detected;
         }
 
         /// <summary>
         /// Reads a CP content pack's content.json and looks for Load actions
-        /// targeting vanilla farm maps.
+        /// targeting vanilla farm maps. Skips mods that already register
+        /// themselves in Data/AdditionalFarms.
         /// </summary>
         private List<string> ScanContentPack(IModInfo mod)
         {
@@ -109,13 +118,39 @@ namespace CPFarmRegistrar
                 if (changes == null)
                     return farmTargets;
 
+                // First pass: check if this mod self-registers in
+                // Data/AdditionalFarms. If so, it handles its own farm
+                // selector entry and doesn't need us.
                 foreach (JToken change in changes)
                 {
                     string action = change["Action"]?.ToString();
                     if (action == null)
                         continue;
 
-                    // Only look for Load actions - these are full map replacements.
+                    if (action.Equals("EditData", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string editTarget = change["Target"]?.ToString();
+                        if (editTarget != null && editTarget.Equals(
+                            "Data/AdditionalFarms",
+                            StringComparison.OrdinalIgnoreCase))
+                        {
+                            Monitor.Log(
+                                $"  {mod.Manifest.Name} self-registers in " +
+                                $"Data/AdditionalFarms. Skipping.",
+                                LogLevel.Trace);
+                            return farmTargets;
+                        }
+                    }
+                }
+
+                // Second pass: scan for Load actions targeting vanilla farm maps.
+                foreach (JToken change in changes)
+                {
+                    string action = change["Action"]?.ToString();
+                    if (action == null)
+                        continue;
+
+                    // Only look for Load actions — these are full map replacements.
                     // EditMap actions modify existing maps and are less likely to be
                     // full farm replacements, but we could extend detection later.
                     if (!action.Equals("Load", StringComparison.OrdinalIgnoreCase))
@@ -130,8 +165,9 @@ namespace CPFarmRegistrar
                     if (target.Contains("{{"))
                     {
                         Monitor.Log(
-                            $"  Skipping tokenized target '{target}' in {mod.Manifest.Name} " +
-                            $"- cannot resolve CP tokens at scan time.",
+                            $"  Skipping tokenized target '{target}' in " +
+                            $"{mod.Manifest.Name} - cannot resolve CP tokens " +
+                            $"at scan time.",
                             LogLevel.Trace);
                         continue;
                     }
@@ -140,16 +176,16 @@ namespace CPFarmRegistrar
                     if (VanillaFarmMap.IsVanillaFarmMap(normalized))
                     {
                         // Check if this patch has a When condition that already
-                        // limits it to a specific FarmType. If so, it's somewhat
-                        // self-aware and less of a problem, but we still register it
-                        // since the vanilla map is still unconditionally replaced
-                        // when the condition is met.
+                        // limits it to a specific context. Log it for visibility
+                        // but still register it, since the vanilla map is still
+                        // replaced when the condition is met.
                         JToken when = change["When"];
                         if (when != null)
                         {
                             Monitor.Log(
-                                $"  Found conditional Load targeting '{normalized}' in " +
-                                $"{mod.Manifest.Name} (has When block - may be partially scoped).",
+                                $"  Found conditional Load targeting '{normalized}' " +
+                                $"in {mod.Manifest.Name} (has When block - may be " +
+                                $"partially scoped).",
                                 LogLevel.Trace);
                         }
 
@@ -161,7 +197,8 @@ namespace CPFarmRegistrar
             catch (Exception ex)
             {
                 Monitor.Log(
-                    $"Failed to parse content.json for {mod.Manifest.Name}: {ex.Message}",
+                    $"Failed to parse content.json for {mod.Manifest.Name}: " +
+                    $"{ex.Message}",
                     LogLevel.Warn);
             }
 
@@ -173,9 +210,8 @@ namespace CPFarmRegistrar
         /// </summary>
         private string GetContentPackDirectory(IModInfo mod)
         {
-            // IModInfo.GetType() has a DirectoryPath property via reflection,
-            // but the cleaner approach is to use the mod registry's path info.
-            // SMAPI exposes this through the mod's directory path.
+            // SMAPI's IModInfo implementation has a DirectoryPath property
+            // that isn't on the interface. Access it via reflection.
             try
             {
                 var directoryPath = mod.GetType()
