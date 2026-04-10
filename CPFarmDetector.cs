@@ -12,6 +12,8 @@ namespace CPFarmRegistrar
     /// Scans installed Content Patcher content packs to detect mods that
     /// silently replace vanilla farm maps via Load actions.
     /// Skips mods that already self-register in Data/AdditionalFarms.
+    /// Resolves simple dynamic tokens to catch config-driven farm mods.
+    /// Also detects whether each mod edits Maps/FarmHouse.
     /// </summary>
     public class CPFarmDetector
     {
@@ -41,18 +43,20 @@ namespace CPFarmRegistrar
                     continue;
 
                 if (!mod.Manifest.ContentPackFor.UniqueID.Equals(
-                    "Pathoschild.ContentPatcher", StringComparison.OrdinalIgnoreCase))
+                    "Pathoschild.ContentPatcher",
+                    StringComparison.OrdinalIgnoreCase))
                     continue;
 
                 // Skip our own mod just in case
                 if (mod.Manifest.UniqueID.Equals(
-                    "tbonehunter.CPFarmRegistrar", StringComparison.OrdinalIgnoreCase))
+                    "tbonehunter.CPFarmRegistrar",
+                    StringComparison.OrdinalIgnoreCase))
                     continue;
 
-                var farmTargets = ScanContentPack(mod);
-                if (farmTargets.Count > 0)
+                var scanResult = ScanContentPack(mod);
+                if (scanResult.FarmTargets.Count > 0)
                 {
-                    foreach (var target in farmTargets)
+                    foreach (var target in scanResult.FarmTargets)
                     {
                         string normalized = VanillaFarmMap.Normalize(target);
 
@@ -69,12 +73,16 @@ namespace CPFarmRegistrar
                                 ?? $"Custom {replacedName} farm replacement.",
                             TargetMapAsset = normalized,
                             ReplacedFarmName = replacedName,
-                            ContentPackDirectory = GetContentPackDirectory(mod)
+                            ContentPackDirectory = GetContentPackDirectory(mod),
+                            EditsFarmHouse = scanResult.EditsFarmHouse
                         };
 
                         detected.Add(entry);
                         Monitor.Log(
-                            $"Detected CP farm mod: {entry}",
+                            $"Detected CP farm mod: {entry}" +
+                            (entry.EditsFarmHouse
+                                ? " (also edits FarmHouse)"
+                                : ""),
                             LogLevel.Info);
                     }
                 }
@@ -93,21 +101,31 @@ namespace CPFarmRegistrar
         }
 
         /// <summary>
+        /// Result of scanning a single CP content pack.
+        /// </summary>
+        private class ScanResult
+        {
+            public List<string> FarmTargets { get; set; } = new();
+            public bool EditsFarmHouse { get; set; }
+        }
+
+        /// <summary>
         /// Reads a CP content pack's content.json and looks for Load actions
         /// targeting vanilla farm maps. Skips mods that already register
-        /// themselves in Data/AdditionalFarms.
+        /// themselves in Data/AdditionalFarms. Resolves simple dynamic tokens.
+        /// Also checks whether the mod edits Maps/FarmHouse.
         /// </summary>
-        private List<string> ScanContentPack(IModInfo mod)
+        private ScanResult ScanContentPack(IModInfo mod)
         {
-            var farmTargets = new List<string>();
+            var result = new ScanResult();
 
             string contentPackDir = GetContentPackDirectory(mod);
             if (contentPackDir == null)
-                return farmTargets;
+                return result;
 
             string contentJsonPath = Path.Combine(contentPackDir, "content.json");
             if (!File.Exists(contentJsonPath))
-                return farmTargets;
+                return result;
 
             try
             {
@@ -116,7 +134,7 @@ namespace CPFarmRegistrar
 
                 JArray changes = root["Changes"] as JArray;
                 if (changes == null)
-                    return farmTargets;
+                    return result;
 
                 // First pass: check if this mod self-registers in
                 // Data/AdditionalFarms. If so, it handles its own farm
@@ -138,47 +156,60 @@ namespace CPFarmRegistrar
                                 $"  {mod.Manifest.Name} self-registers in " +
                                 $"Data/AdditionalFarms. Skipping.",
                                 LogLevel.Trace);
-                            return farmTargets;
+                            return result;
                         }
                     }
                 }
 
-                // Second pass: scan for Load actions targeting vanilla farm maps.
+                // Build a token resolution table from ConfigSchema defaults
+                // and DynamicTokens.
+                var tokenDefaults = ResolveTokenDefaults(root);
+
+                // Second pass: scan for Load actions targeting vanilla farm maps,
+                // and check for any edits to Maps/FarmHouse.
                 foreach (JToken change in changes)
                 {
                     string action = change["Action"]?.ToString();
                     if (action == null)
                         continue;
 
-                    // Only look for Load actions — these are full map replacements.
-                    // EditMap actions modify existing maps and are less likely to be
-                    // full farm replacements, but we could extend detection later.
-                    if (!action.Equals("Load", StringComparison.OrdinalIgnoreCase))
-                        continue;
-
                     string target = change["Target"]?.ToString();
                     if (target == null)
                         continue;
 
-                    // Skip targets that use CP tokens (e.g., "Maps/Farm_{{something}}")
-                    // We can't resolve these at scan time.
-                    if (target.Contains("{{"))
+                    // Resolve tokens in the target
+                    string resolved = ResolveTokens(target, tokenDefaults);
+
+                    // Check for FarmHouse edits (Load or EditMap)
+                    if (action.Equals("Load", StringComparison.OrdinalIgnoreCase) ||
+                        action.Equals("EditMap", StringComparison.OrdinalIgnoreCase))
+                    {
+                        string normalizedTarget =
+                            VanillaFarmMap.Normalize(resolved);
+
+                        if (normalizedTarget.Equals("Maps/FarmHouse",
+                            StringComparison.OrdinalIgnoreCase))
+                        {
+                            result.EditsFarmHouse = true;
+                        }
+                    }
+
+                    // Only look for Load actions for farm map detection
+                    if (!action.Equals("Load", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    if (resolved.Contains("{{"))
                     {
                         Monitor.Log(
-                            $"  Skipping tokenized target '{target}' in " +
-                            $"{mod.Manifest.Name} - cannot resolve CP tokens " +
-                            $"at scan time.",
+                            $"  Skipping unresolvable target '{target}' in " +
+                            $"{mod.Manifest.Name} - could not resolve all tokens.",
                             LogLevel.Trace);
                         continue;
                     }
 
-                    string normalized = VanillaFarmMap.Normalize(target);
+                    string normalized = VanillaFarmMap.Normalize(resolved);
                     if (VanillaFarmMap.IsVanillaFarmMap(normalized))
                     {
-                        // Check if this patch has a When condition that already
-                        // limits it to a specific context. Log it for visibility
-                        // but still register it, since the vanilla map is still
-                        // replaced when the condition is met.
                         JToken when = change["When"];
                         if (when != null)
                         {
@@ -189,8 +220,8 @@ namespace CPFarmRegistrar
                                 LogLevel.Trace);
                         }
 
-                        if (!farmTargets.Contains(normalized))
-                            farmTargets.Add(normalized);
+                        if (!result.FarmTargets.Contains(normalized))
+                            result.FarmTargets.Add(normalized);
                     }
                 }
             }
@@ -202,7 +233,106 @@ namespace CPFarmRegistrar
                     LogLevel.Warn);
             }
 
-            return farmTargets;
+            return result;
+        }
+
+        /// <summary>
+        /// Builds a dictionary of token name -> default value by reading
+        /// ConfigSchema defaults and then resolving DynamicTokens that
+        /// depend on those config values.
+        /// </summary>
+        private Dictionary<string, string> ResolveTokenDefaults(JObject root)
+        {
+            var defaults = new Dictionary<string, string>(
+                StringComparer.OrdinalIgnoreCase);
+
+            // Step 1: Read ConfigSchema defaults
+            JObject configSchema = root["ConfigSchema"] as JObject;
+            if (configSchema != null)
+            {
+                foreach (JProperty prop in configSchema.Properties())
+                {
+                    string defaultValue = prop.Value?["Default"]?.ToString();
+                    if (defaultValue != null)
+                    {
+                        defaults[prop.Name] = defaultValue;
+                    }
+                }
+            }
+
+            // Step 2: Resolve DynamicTokens using config defaults.
+            JArray dynamicTokens = root["DynamicTokens"] as JArray;
+            if (dynamicTokens != null)
+            {
+                foreach (JToken token in dynamicTokens)
+                {
+                    string name = token["Name"]?.ToString();
+                    string value = token["Value"]?.ToString();
+                    if (name == null || value == null)
+                        continue;
+
+                    JObject when = token["When"] as JObject;
+                    if (when == null)
+                    {
+                        // Unconditional dynamic token — always applies
+                        defaults[name] = value;
+                        continue;
+                    }
+
+                    // Check if all When conditions match against our
+                    // resolved defaults.
+                    bool allMatch = true;
+                    foreach (JProperty condition in when.Properties())
+                    {
+                        string conditionKey = condition.Name;
+                        string conditionValue = condition.Value?.ToString();
+
+                        if (defaults.TryGetValue(conditionKey, out string currentValue))
+                        {
+                            if (!string.Equals(currentValue, conditionValue,
+                                StringComparison.OrdinalIgnoreCase))
+                            {
+                                allMatch = false;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            allMatch = false;
+                            break;
+                        }
+                    }
+
+                    if (allMatch)
+                    {
+                        defaults[name] = value;
+                    }
+                }
+            }
+
+            return defaults;
+        }
+
+        /// <summary>
+        /// Replaces {{tokenName}} placeholders in a string with resolved values.
+        /// </summary>
+        private string ResolveTokens(
+            string input,
+            Dictionary<string, string> tokenDefaults)
+        {
+            if (!input.Contains("{{"))
+                return input;
+
+            string result = input;
+            foreach (var kvp in tokenDefaults)
+            {
+                result = result.Replace(
+                    $"{{{{{kvp.Key}}}}}",
+                    kvp.Value,
+                    StringComparison.OrdinalIgnoreCase);
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -210,8 +340,6 @@ namespace CPFarmRegistrar
         /// </summary>
         private string GetContentPackDirectory(IModInfo mod)
         {
-            // SMAPI's IModInfo implementation has a DirectoryPath property
-            // that isn't on the interface. Access it via reflection.
             try
             {
                 var directoryPath = mod.GetType()

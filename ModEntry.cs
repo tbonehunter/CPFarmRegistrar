@@ -10,9 +10,10 @@ namespace CPFarmRegistrar
     /// 
     /// Detects Content Patcher farm mods that silently replace vanilla farm maps,
     /// registers them as proper selectable farm types via Data/AdditionalFarms,
-    /// and restores vanilla maps when the CP farm is not selected.
+    /// and uses Harmony to filter CP's Load patches so only the selected farm's
+    /// map replacement is applied.
     /// 
-    /// Requires: Content Patcher, Custom Farm Loader
+    /// Requires: Content Patcher
     /// </summary>
     public class ModEntry : Mod
     {
@@ -51,10 +52,9 @@ namespace CPFarmRegistrar
                 return;
             }
 
-            // Initialize the registrar and cache vanilla maps
+            // Initialize the registrar and apply Harmony patches
             Registrar = new FarmRegistrar(Monitor, Helper, DetectedFarms);
-            Registrar.CacheVanillaMaps();
-            Registrar.Initialize();
+            Registrar.Initialize(ModManifest.UniqueID);
 
             Monitor.Log(
                 $"CP Farm Registrar initialized. " +

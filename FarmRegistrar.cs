@@ -1,8 +1,10 @@
 // FarmRegistrar.cs
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Reflection;
+using HarmonyLib;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
@@ -13,8 +15,10 @@ using StardewValley.GameData;
 namespace CPFarmRegistrar
 {
     /// <summary>
-    /// Registers detected CP farm mods as selectable farm types via Data/AdditionalFarms
-    /// and handles restoring vanilla maps when a CP farm is not selected.
+    /// Registers detected CP farm mods as selectable farm types via Data/AdditionalFarms,
+    /// uses Harmony to filter CP's Load and Edit patches so only the selected CP farm's
+    /// patches are applied, and spoofs Game1.whichFarm during loadForNewGame so vanilla
+    /// furniture and starter items are placed correctly.
     /// </summary>
     public class FarmRegistrar
     {
@@ -25,17 +29,21 @@ namespace CPFarmRegistrar
         /// <summary>
         /// Tracks which vanilla map assets are claimed by detected CP farms.
         /// Key: normalized map asset name (e.g., "Maps/Farm_Foraging")
-        /// Value: the DetectedCPFarm that targets it
+        /// Value: list of DetectedCPFarms targeting that map
         /// </summary>
-        private readonly Dictionary<string, DetectedCPFarm> ClaimedAssets = new();
+        private readonly Dictionary<string, List<DetectedCPFarm>> ClaimedAssets = new();
 
         /// <summary>
-        /// Cached vanilla map data loaded via a raw content manager that
-        /// bypasses SMAPI/CP, giving us untouched vanilla maps from XNB files.
-        /// Key: normalized map asset name
-        /// Value: the raw vanilla map
+        /// Static reference used by the Harmony postfixes to access instance data.
         /// </summary>
-        private readonly Dictionary<string, xTile.Map> VanillaMapCache = new();
+        private static FarmRegistrar Instance;
+
+        /// <summary>
+        /// When non-null, we are inside a loadForNewGame spoof and this is the
+        /// farm that was selected before the spoof. The patch filter uses this
+        /// instead of querying Game1.whichFarm / GetFarmTypeID() during the spoof.
+        /// </summary>
+        private static DetectedCPFarm SpoofedSelectedFarm = null;
 
         public FarmRegistrar(
             IMonitor monitor,
@@ -45,110 +53,460 @@ namespace CPFarmRegistrar
             Monitor = monitor;
             Helper = helper;
             DetectedFarms = detectedFarms;
+            Instance = this;
 
             foreach (var farm in detectedFarms)
             {
-                if (ClaimedAssets.ContainsKey(farm.TargetMapAsset))
+                if (!ClaimedAssets.ContainsKey(farm.TargetMapAsset))
+                    ClaimedAssets[farm.TargetMapAsset] = new List<DetectedCPFarm>();
+
+                ClaimedAssets[farm.TargetMapAsset].Add(farm);
+            }
+
+            foreach (var kvp in ClaimedAssets)
+            {
+                if (kvp.Value.Count > 1)
                 {
-                    var existing = ClaimedAssets[farm.TargetMapAsset];
+                    string modNames = string.Join(", ",
+                        kvp.Value.Select(f => $"'{f.ModName}'"));
                     Monitor.Log(
-                        $"Warning: Both '{existing.ModName}' and '{farm.ModName}' " +
-                        $"replace {farm.TargetMapAsset}. Only one can be active at a time.",
-                        LogLevel.Warn);
+                        $"Multiple CP farm mods target {kvp.Key}: {modNames}. " +
+                        $"Each will be selectable independently.",
+                        LogLevel.Info);
                 }
-                ClaimedAssets[farm.TargetMapAsset] = farm;
             }
         }
 
         /// <summary>
-        /// Hooks into SMAPI's AssetRequested event.
+        /// Hooks into SMAPI's AssetRequested event for farm registration
+        /// and applies Harmony patches.
         /// </summary>
-        public void Initialize()
+        public void Initialize(string modUniqueId)
         {
             Helper.Events.Content.AssetRequested += OnAssetRequested;
+
+            ApplyHarmonyPatches(modUniqueId);
         }
 
         /// <summary>
-        /// Caches vanilla map data by loading maps through a raw
-        /// LocalizedContentManager that bypasses SMAPI and Content Patcher.
-        /// This gives us the untouched vanilla XNB maps.
-        /// Must be called during GameLaunched.
+        /// Applies Harmony patches to:
+        /// 1. CP's PatchManager.GetCurrentLoaders — filter Load patches
+        /// 2. CP's PatchManager.GetCurrentEditors — filter Edit patches
+        /// 3. Game1.loadForNewGame — spoof whichFarm for vanilla furniture
         /// </summary>
-        public void CacheVanillaMaps()
+        private void ApplyHarmonyPatches(string modUniqueId)
         {
-            // Create a raw content manager that talks directly to the game's
-            // Content folder, completely bypassing SMAPI's content interception
-            // and therefore any CP patches.
-            LocalizedContentManager rawContentManager = null;
+            var harmony = new Harmony(modUniqueId);
+
+            // --- CP PatchManager patches ---
+
+            Type patchManagerType = null;
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                patchManagerType = assembly.GetType(
+                    "ContentPatcher.Framework.PatchManager");
+                if (patchManagerType != null)
+                    break;
+            }
+
+            if (patchManagerType == null)
+            {
+                Monitor.Log(
+                    "Could not find ContentPatcher.Framework.PatchManager. " +
+                    "Harmony patches not applied — CP farm filtering will not work.",
+                    LogLevel.Error);
+                return;
+            }
+
+            MethodInfo getLoaders = patchManagerType.GetMethod(
+                "GetCurrentLoaders",
+                BindingFlags.Public | BindingFlags.Instance);
+
+            if (getLoaders != null)
+            {
+                harmony.Patch(
+                    original: getLoaders,
+                    postfix: new HarmonyMethod(
+                        typeof(FarmRegistrar),
+                        nameof(GetCurrentLoaders_Postfix)));
+
+                Monitor.Log(
+                    "Harmony postfix applied to PatchManager.GetCurrentLoaders.",
+                    LogLevel.Trace);
+            }
+            else
+            {
+                Monitor.Log(
+                    "Could not find PatchManager.GetCurrentLoaders method.",
+                    LogLevel.Error);
+            }
+
+            MethodInfo getEditors = patchManagerType.GetMethod(
+                "GetCurrentEditors",
+                BindingFlags.Public | BindingFlags.Instance);
+
+            if (getEditors != null)
+            {
+                harmony.Patch(
+                    original: getEditors,
+                    postfix: new HarmonyMethod(
+                        typeof(FarmRegistrar),
+                        nameof(GetCurrentEditors_Postfix)));
+
+                Monitor.Log(
+                    "Harmony postfix applied to PatchManager.GetCurrentEditors.",
+                    LogLevel.Trace);
+            }
+            else
+            {
+                Monitor.Log(
+                    "Could not find PatchManager.GetCurrentEditors method.",
+                    LogLevel.Error);
+            }
+
+            // --- Game1.loadForNewGame patches ---
+
+            MethodInfo loadForNewGame = typeof(Game1).GetMethod(
+                "loadForNewGame",
+                BindingFlags.Public | BindingFlags.Instance);
+
+            if (loadForNewGame != null)
+            {
+                harmony.Patch(
+                    original: loadForNewGame,
+                    prefix: new HarmonyMethod(
+                        typeof(FarmRegistrar),
+                        nameof(LoadForNewGame_Prefix)),
+                    postfix: new HarmonyMethod(
+                        typeof(FarmRegistrar),
+                        nameof(LoadForNewGame_Postfix)));
+
+                Monitor.Log(
+                    "Harmony prefix/postfix applied to Game1.loadForNewGame.",
+                    LogLevel.Trace);
+            }
+            else
+            {
+                Monitor.Log(
+                    "Could not find Game1.loadForNewGame method. " +
+                    "Starting furniture may not be placed for CP farms.",
+                    LogLevel.Warn);
+            }
+        }
+
+        // =====================================================================
+        // Harmony: CP Patch Filtering
+        // =====================================================================
+
+        private static void GetCurrentLoaders_Postfix(ref object __result)
+        {
+            if (Instance == null || __result == null)
+                return;
 
             try
             {
-                rawContentManager = new LocalizedContentManager(
-                    Game1.content.ServiceProvider,
-                    Game1.content.RootDirectory);
-
-                foreach (var mapAsset in ClaimedAssets.Keys)
-                {
-                    try
-                    {
-                        // Load the map directly from the XNB file.
-                        // The asset name is something like "Maps/Farm_Foraging"
-                        // and the content manager will find and load
-                        // Content/Maps/Farm_Foraging.xnb automatically.
-                        var map = rawContentManager.Load<xTile.Map>(mapAsset);
-
-                        if (map != null)
-                        {
-                            VanillaMapCache[mapAsset] = map;
-                            Monitor.Log(
-                                $"Cached vanilla map: {mapAsset}",
-                                LogLevel.Trace);
-                        }
-                        else
-                        {
-                            Monitor.Log(
-                                $"Loaded null map for {mapAsset}.",
-                                LogLevel.Warn);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Monitor.Log(
-                            $"Failed to cache vanilla map {mapAsset}: {ex.Message}",
-                            LogLevel.Warn);
-                    }
-                }
+                Instance.FilterPatches(ref __result, "Load");
             }
             catch (Exception ex)
             {
-                Monitor.Log(
-                    $"Failed to create raw content manager: {ex.Message}",
+                Instance.Monitor.LogOnce(
+                    $"Error in GetCurrentLoaders postfix: {ex.Message}",
                     LogLevel.Error);
-            }
-            finally
-            {
-                // Dispose the raw content manager but keep the loaded maps.
-                // The maps are xTile objects in memory and don't depend on
-                // the content manager staying alive.
-                // 
-                // NOTE: Disposing the content manager may unload the maps
-                // from its internal cache, but the xTile.Map objects
-                // themselves should remain valid since they're managed
-                // references. If this causes issues, we can keep the
-                // content manager alive as a field instead.
-                //
-                // For safety, keep it alive:
-                // rawContentManager?.Dispose();
-                //
-                // We intentionally do NOT dispose here. The raw content manager
-                // must stay alive to keep tilesheet texture references valid.
-                // It will be collected when the mod is unloaded.
             }
         }
 
+        private static void GetCurrentEditors_Postfix(ref object __result)
+        {
+            if (Instance == null || __result == null)
+                return;
+
+            try
+            {
+                Instance.FilterPatches(ref __result, "Edit");
+            }
+            catch (Exception ex)
+            {
+                Instance.Monitor.LogOnce(
+                    $"Error in GetCurrentEditors postfix: {ex.Message}",
+                    LogLevel.Error);
+            }
+        }
+
+        private void FilterPatches(ref object result, string patchKind)
+        {
+            var enumerable = result as IEnumerable;
+            if (enumerable == null)
+                return;
+
+            var allPatches = new List<object>();
+            Type patchType = null;
+
+            foreach (object patch in enumerable)
+            {
+                allPatches.Add(patch);
+                if (patchType == null)
+                    patchType = patch.GetType();
+            }
+
+            if (allPatches.Count == 0)
+                return;
+
+            bool needsFiltering = false;
+            foreach (object patch in allPatches)
+            {
+                IAssetName targetAsset = GetTargetAsset(patch);
+                if (targetAsset == null)
+                    continue;
+
+                string normalized = VanillaFarmMap.Normalize(
+                    targetAsset.BaseName);
+
+                if (ClaimedAssets.ContainsKey(normalized))
+                {
+                    needsFiltering = true;
+                    break;
+                }
+            }
+
+            if (!needsFiltering)
+                return;
+
+            var filtered = new List<object>();
+            foreach (object patch in allPatches)
+            {
+                if (ShouldAllowPatch(patch, patchKind))
+                    filtered.Add(patch);
+            }
+
+            if (filtered.Count == allPatches.Count)
+                return;
+
+            Type elementType = FindEnumerableElementType(result.GetType())
+                ?? patchType;
+
+            if (elementType != null)
+            {
+                Type listType = typeof(List<>).MakeGenericType(elementType);
+                IList typedList = (IList)Activator.CreateInstance(listType);
+
+                foreach (object item in filtered)
+                    typedList.Add(item);
+
+                result = typedList;
+            }
+        }
+
+        private Type FindEnumerableElementType(Type type)
+        {
+            foreach (Type iface in type.GetInterfaces())
+            {
+                if (iface.IsGenericType &&
+                    iface.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                {
+                    return iface.GetGenericArguments()[0];
+                }
+            }
+            return null;
+        }
+
+        private bool ShouldAllowPatch(object patch, string patchKind)
+        {
+            IAssetName targetAsset = GetTargetAsset(patch);
+            IContentPack contentPack = GetContentPack(patch);
+
+            if (targetAsset == null || contentPack == null)
+                return true;
+
+            string normalized = VanillaFarmMap.Normalize(
+                targetAsset.BaseName);
+
+            if (!ClaimedAssets.ContainsKey(normalized))
+                return true;
+
+            string patchModId = contentPack.Manifest.UniqueID;
+            var claimingFarms = ClaimedAssets[normalized];
+
+            var matchingFarm = claimingFarms.FirstOrDefault(
+                f => f.UniqueModId.Equals(patchModId,
+                    StringComparison.OrdinalIgnoreCase));
+
+            if (matchingFarm == null)
+                return true;
+
+            if (IsFarmSelected(matchingFarm))
+            {
+                Monitor.LogOnce(
+                    $"Allowing {patchKind} patch from '{matchingFarm.ModName}' " +
+                    $"for {normalized} (selected farm).",
+                    LogLevel.Trace);
+                return true;
+            }
+            else
+            {
+                Monitor.LogOnce(
+                    $"Suppressing {patchKind} patch from '{matchingFarm.ModName}' " +
+                    $"for {normalized} (not selected).",
+                    LogLevel.Trace);
+                return false;
+            }
+        }
+
+        // =====================================================================
+        // Harmony: loadForNewGame whichFarm Spoofing
+        // =====================================================================
+
+        /// <summary>
+        /// Harmony prefix for Game1.loadForNewGame.
+        /// If a CPFR farm is selected and the mod doesn't edit FarmHouse,
+        /// store the selected farm reference for the filter to use during
+        /// the spoof, then set Game1.whichFarm to the vanilla integer.
+        /// </summary>
+        private static void LoadForNewGame_Prefix()
+        {
+            if (Instance == null)
+                return;
+
+            try
+            {
+                SpoofedSelectedFarm = null;
+
+                if (Game1.whichFarm != 7)
+                    return;
+
+                string currentFarmId = Game1.GetFarmTypeID();
+                var selectedFarm = Instance.DetectedFarms.FirstOrDefault(
+                    f => f.RegisteredFarmId == currentFarmId);
+
+                if (selectedFarm == null)
+                    return;
+
+                if (selectedFarm.EditsFarmHouse)
+                {
+                    Instance.Monitor.Log(
+                        $"'{selectedFarm.ModName}' edits FarmHouse — " +
+                        $"skipping vanilla furniture injection.",
+                        LogLevel.Trace);
+                    return;
+                }
+
+                if (!VanillaFarmMap.AssetToWhichFarm.TryGetValue(
+                    selectedFarm.TargetMapAsset, out int vanillaWhichFarm))
+                    return;
+
+                // Store the selected farm BEFORE spoofing so the patch
+                // filter knows which farm is active during the spoof.
+                SpoofedSelectedFarm = selectedFarm;
+
+                Game1.whichFarm = vanillaWhichFarm;
+
+                Instance.Monitor.Log(
+                    $"Spoofing whichFarm to {vanillaWhichFarm} " +
+                    $"({selectedFarm.ReplacedFarmName}) for " +
+                    $"'{selectedFarm.ModName}' during loadForNewGame.",
+                    LogLevel.Trace);
+            }
+            catch (Exception ex)
+            {
+                Instance.Monitor.LogOnce(
+                    $"Error in loadForNewGame prefix: {ex.Message}",
+                    LogLevel.Error);
+            }
+        }
+
+        /// <summary>
+        /// Harmony postfix for Game1.loadForNewGame.
+        /// Restores Game1.whichFarm to 7 and clears the spoof reference.
+        /// </summary>
+        private static void LoadForNewGame_Postfix()
+        {
+            if (Instance == null || SpoofedSelectedFarm == null)
+                return;
+
+            try
+            {
+                Game1.whichFarm = 7;
+
+                Instance.Monitor.Log(
+                    $"Restored whichFarm to 7 after loadForNewGame.",
+                    LogLevel.Trace);
+
+                SpoofedSelectedFarm = null;
+            }
+            catch (Exception ex)
+            {
+                Instance.Monitor.LogOnce(
+                    $"Error in loadForNewGame postfix: {ex.Message}",
+                    LogLevel.Error);
+            }
+        }
+
+        // =====================================================================
+        // Farm Selection Check
+        // =====================================================================
+
+        /// <summary>
+        /// Checks whether the given farm is the currently selected farm.
+        /// Handles both normal state and the loadForNewGame spoof state.
+        /// During a spoof, Game1.whichFarm is temporarily a vanilla value
+        /// and GetFarmTypeID() won't return our ID, so we check against
+        /// the stored SpoofedSelectedFarm reference instead.
+        /// </summary>
+        private static bool IsFarmSelected(DetectedCPFarm farm)
+        {
+            // During a loadForNewGame spoof, use the stored reference
+            if (SpoofedSelectedFarm != null)
+            {
+                return farm.UniqueModId.Equals(
+                    SpoofedSelectedFarm.UniqueModId,
+                    StringComparison.OrdinalIgnoreCase);
+            }
+
+            // Normal state: check Game1 directly
+            if (Game1.whichFarm != 7)
+                return false;
+
+            string currentFarmId = Game1.GetFarmTypeID();
+            return currentFarmId == farm.RegisteredFarmId;
+        }
+
+        // =====================================================================
+        // Reflection Helpers
+        // =====================================================================
+
+        private IAssetName GetTargetAsset(object patch)
+        {
+            try
+            {
+                return patch.GetType()
+                    .GetProperty("TargetAsset")?
+                    .GetValue(patch) as IAssetName;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private IContentPack GetContentPack(object patch)
+        {
+            try
+            {
+                return patch.GetType()
+                    .GetProperty("ContentPack")?
+                    .GetValue(patch) as IContentPack;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        // =====================================================================
+        // SMAPI AssetRequested: Farm Registration
+        // =====================================================================
+
         private void OnAssetRequested(object sender, AssetRequestedEventArgs e)
         {
-            // Inject our detected farms into the additional farms list
             if (e.NameWithoutLocale.IsEquivalentTo("Data/AdditionalFarms"))
             {
                 e.Edit(edit =>
@@ -188,7 +546,6 @@ namespace CPFarmRegistrar
                 return;
             }
 
-            // Provide tooltip/description strings for our registered farms
             if (e.NameWithoutLocale.BaseName.Contains("Strings/UI"))
             {
                 e.Edit(edit =>
@@ -202,8 +559,8 @@ namespace CPFarmRegistrar
                         if (!data.ContainsKey(key))
                         {
                             string desc = !string.IsNullOrEmpty(farm.Description)
-                               ? farm.Description
-                               : $"A custom {farm.ReplacedFarmName} farm replacement.";
+                                ? farm.Description
+                                : $"A custom {farm.ReplacedFarmName} farm replacement.";
                             string description =
                                 $"{farm.ModName}_{desc}";
                             data[key] = description;
@@ -214,7 +571,6 @@ namespace CPFarmRegistrar
                 return;
             }
 
-            // Provide icon textures for our registered farms
             if (e.NameWithoutLocale.BaseName.StartsWith("CPFarmRegistrar_Icon/"))
             {
                 string modId = e.NameWithoutLocale.BaseName
@@ -231,77 +587,12 @@ namespace CPFarmRegistrar
 
                 return;
             }
-
-            // Core logic: restore vanilla maps when our CP farm isn't selected
-            HandleVanillaMapRestoration(e);
         }
 
-/// <summary>
-        /// If this asset request is for a vanilla farm map that a detected CP farm
-        /// is replacing, and that CP farm is NOT the currently selected farm type,
-        /// edit the asset after CP loads it to swap in the cached vanilla map.
-        /// Using Edit instead of LoadFrom avoids a two-loader conflict with CP.
-        /// </summary>
-        private void HandleVanillaMapRestoration(AssetRequestedEventArgs e)
-        {
-            string normalized = VanillaFarmMap.Normalize(
-                e.NameWithoutLocale.BaseName);
+        // =====================================================================
+        // Icon Helpers
+        // =====================================================================
 
-            if (!ClaimedAssets.TryGetValue(normalized, out var claimingFarm))
-                return;
-
-            // If the registered CP farm IS selected, let CP do its thing
-            if (IsRegisteredCPFarmSelected(claimingFarm))
-            {
-                Monitor.LogOnce(
-                    $"CP farm '{claimingFarm.ModName}' is selected. " +
-                    $"Allowing CP to replace {normalized}.",
-                    LogLevel.Trace);
-                return;
-            }
-
-            // CP farm is NOT selected — restore vanilla map
-            if (!VanillaMapCache.TryGetValue(normalized, out var vanillaMap))
-            {
-                Monitor.LogOnce(
-                    $"Cannot restore vanilla map for {normalized}: " +
-                    $"no cached copy available.",
-                    LogLevel.Warn);
-                return;
-            }
-
-            Monitor.LogOnce(
-                $"Restoring vanilla {claimingFarm.ReplacedFarmName} farm map " +
-                $"(CP farm '{claimingFarm.ModName}' is not selected).",
-                LogLevel.Trace);
-
-            // Edit at Late priority so CP's Load runs first, then we
-            // replace the map content with the cached vanilla version.
-            // This avoids competing LoadFrom providers.
-            e.Edit(asset =>
-            {
-                var mapAsset = asset.AsMap();
-                mapAsset.ReplaceWith(vanillaMap);
-            }, AssetEditPriority.Late);
-        }
-
-        /// <summary>
-        /// Checks whether the currently selected farm type is our registered
-        /// version of the given CP farm.
-        /// </summary>
-        private bool IsRegisteredCPFarmSelected(DetectedCPFarm farm)
-        {
-            if (Game1.whichFarm != 7)
-                return false;
-
-            string currentFarmId = Game1.GetFarmTypeID();
-            return currentFarmId == farm.RegisteredFarmId;
-        }
-
-        /// <summary>
-        /// Gets a fallback icon using the vanilla farm icon for the farm
-        /// type being replaced.
-        /// </summary>
         private Texture2D GetFallbackIcon(DetectedCPFarm farm)
         {
             if (!VanillaFarmMap.AssetToWhichFarm.TryGetValue(
@@ -329,9 +620,6 @@ namespace CPFarmRegistrar
             return CreateSubTexture(Game1.mouseCursors, sourceRect);
         }
 
-        /// <summary>
-        /// Creates a new texture from a sub-rectangle of a source texture.
-        /// </summary>
         private Texture2D CreateSubTexture(
             Texture2D source, Rectangle sourceRect)
         {
@@ -347,9 +635,6 @@ namespace CPFarmRegistrar
             return result;
         }
 
-        /// <summary>
-        /// Returns a simple placeholder icon texture.
-        /// </summary>
         private Texture2D GetPlaceholderIcon()
         {
             Texture2D placeholder = new Texture2D(

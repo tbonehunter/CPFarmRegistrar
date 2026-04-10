@@ -1,5 +1,4 @@
 // DetectedCPFarm.cs
-using StardewModdingAPI;
 
 namespace CPFarmRegistrar
 {
@@ -43,6 +42,13 @@ namespace CPFarmRegistrar
         /// Used for locating icon/preview assets if available.
         /// </summary>
         public string ContentPackDirectory { get; set; }
+
+        /// <summary>
+        /// Whether this CP mod also edits Maps/FarmHouse. If true, we skip
+        /// the vanilla furniture injection to avoid conflicting with the
+        /// mod's own farmhouse customization.
+        /// </summary>
+        public bool EditsFarmHouse { get; set; }
 
         public override string ToString()
         {

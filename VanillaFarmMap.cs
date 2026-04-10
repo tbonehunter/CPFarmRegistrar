@@ -26,7 +26,7 @@ namespace CPFarmRegistrar
 
         /// <summary>
         /// Map asset name -> the whichFarm integer the game uses for this farm type.
-        /// Only used for determining which vanilla icon to fall back to.
+        /// Used for determining which vanilla icon to fall back to.
         /// </summary>
         public static readonly Dictionary<string, int> AssetToWhichFarm = new()
         {
