@@ -2,13 +2,13 @@
 
 # CP Farm Registrar
 
-A [SMAPI](https://smapi.io/) mod for [Stardew Valley](https://www.stardewvalley.net/) that detects Content Patcher farm mods which silently replace vanilla farm maps and registers them as proper selectable farm types in the character creation screen.
+A [SMAPI](https://smapi.io/) mod for [Stardew Valley](https://www.stardewvalley.net/) that detects Content Patcher farm mods which silently replace vanilla farm maps and registers them as proper selectable farm types in the character creation screen, giving the player the ability to select either the vanilla or the modded replacement farm without changing configuration.
 
 ## The Problems
 
-1: Many Content Patcher farm mods work by unconditionally replacing a vanilla farm map (e.g., the Forest farm) with their custom map. When you install one of these mods, the vanilla farm it replaces becomes unavailable — and there's no indication in the farm selector that anything has changed. You select "Forest farm" and get a completely different map. Usually the mod creator will specify somewhere in the documentation which farm map their CP replaces, but not always. Worse, if you don't know which vanilla farm a CP mod replaces, you have to dig through SMAPI logs or the mod's `content.json` to figure out which farm type to select. 
+1: Many Content Patcher farm mods work by unconditionally replacing a vanilla farm map (e.g., the Forest farm) with their custom map. When you install one of these mods, the vanilla farm it replaces becomes unavailable — and there's no indication in the farm selector that anything has changed. You select "Forest farm" and get a completely different map. Usually the mod creator will specify somewhere in their documentation which farm map their CP replaces, but not always. And if you don't know which vanilla farm a CP mod replaces, you have to dig through SMAPI logs or your CP Farm mods' `content.json`files to figure out which farm mod to disable. 
 
-2: When multiple CP farm mods target the same vanilla farm, they conflict with each other and neither loads correctly.
+2: When multiple CP farm mods target the same vanilla farm, they conflict with each other and neither loads correctly. 
 
 ## The Solution
 
@@ -21,7 +21,7 @@ CP Farm Registrar scans all installed Content Patcher content packs at startup a
 
 Multiple CP farm mods can target the same vanilla farm type and each will appear as an independent, selectable option.
 
-Mods that already register themselves properly in `Data/AdditionalFarms` (like Immersive Farm 2) are detected and skipped to avoid duplicate entries.
+Mods that already register themselves properly in `Data/AdditionalFarms` are detected and skipped to avoid duplicate entries.
 
 ## Requirements
 
@@ -37,7 +37,7 @@ Mods that already register themselves properly in `Data/AdditionalFarms` (like I
 ## Compatibility
 
 - Works with the vanilla farm selector.
-- Works alongside [Custom Farm Loader](https://www.nexusmods.com/stardewvalley/mods/13804) (CFL). CFL is not required — CP Farm Registrar operates independently. If both are loaded, CPFR will defer to CFL's Farm Selector menu but will insist that selection of the vanilla farm loads the vanilla farm rather than the CP Farm mod trying to replace it.
+- Works alongside [Custom Farm Loader](https://www.nexusmods.com/stardewvalley/mods/13804) (CFL). CFL is not required — CP Farm Registrar operates independently. If both are loaded, CPFR will defer to CFL's Farm Selector menu but will insist that selection of the vanilla farm loads the vanilla farm rather than the CP Farm mod trying to replace it. 
 - Detects CP farm mods that target any of the eight vanilla farm maps: Standard, Riverland, Forest, Hill-top, Wilderness, Four Corners, Beach, and Meadowlands.
 - Resolves simple dynamic tokens in CP content packs (e.g., config-driven targets like `Maps/{{file}}`) using `ConfigSchema` defaults and `DynamicTokens`. This catches mods that use a configurable farm type.
 - Skips CP mods that have unresolvable tokenized targets containing complex or nested tokens.

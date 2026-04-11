@@ -1,0 +1,29 @@
+Naming CP Farm Mod correctly: 
+
+// Provide tooltip/description strings for our registered farms
+if (e.NameWithoutLocale.BaseName.Contains("Strings/UI"))
+{
+    e.Edit(edit =>
+    {
+        var data = edit.AsDictionary<string, string>().Data;
+
+        foreach (var farm in DetectedFarms)
+        {
+            string key =
+                $"CPFarmRegistrar_Desc/{farm.UniqueModId}";
+            if (!data.ContainsKey(key))
+            {
+                string desc = !string.IsNullOrEmpty(farm.Description)
+                    ? farm.Description
+                    : $"A custom {farm.ReplacedFarmName} farm replacement.";
+                string description =
+                    $"{farm.ModName}_{desc}";
+                data[key] = description;
+            }
+        }
+    }, AssetEditPriority.Default);
+
+    return;
+}
+The key line is $"{farm.ModName}_{desc}". The vanilla farm selector uses the underscore as a separator — everything before the first _ becomes the display name, everything after becomes the hover description. So "Overgrown Garden Farm_Content Patcher mod by DaisyNiko" displays as the name "Overgrown Garden Farm" with the description below it.
+farm.ModName comes from mod.Manifest.Name which is set in CPFarmDetector.cs when building the DetectedCPFarm entry. CFL falls back to MapName for the display name (line 240-241 in CustomFarmSelection.cs), which for our entries is the vanilla map asset path like Farm_Foraging, giving you "Farm Foraging".
