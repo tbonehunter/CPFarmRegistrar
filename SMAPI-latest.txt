@@ -1,0 +1,933 @@
+[08:14:52 INFO  SMAPI] SMAPI 4.5.2 with Stardew Valley 1.6.15 build 24356 on Windows 11 (10.0.26200.0)
+[08:14:52 INFO  SMAPI] Mods go here: D:\Stardew Valley\Mods
+[08:14:52 TRACE SMAPI] Log started at 2026-04-19T12:14:52 UTC
+[08:14:52 TRACE SMAPI] Loaded with custom settings: VerboseLogging: [tbonehunter.AutoForager, spacechase0.PreexistingRelationship, tbonehunter.FowlPlay, tbonehunter.NPCMarriageableCPCreator, tbonehunter.NPCMarriageable, tbonehunter.CheatAnon, tbonehunter.CPFarmRegistrar, DeLiXx.Custom_Farm_Loader, spacechase0.GenericModConfigMenu, tbonehunter.GoodFences, tbonehunter.LunchPail, aedenthorn.MapEdit, tbonehunter.PreexistingRelationshipRedux, lrsk_sdvm_rerg.0925160827, spacechase0.SpaceCore, tbonehunter.SVDataExtractor]
+[08:14:57 DEBUG SMAPI] Waiting for game to launch...
+[08:14:58 TRACE game] Instance_Initialize() finished, elapsed = '00:00:00.7814195'
+[08:14:58 TRACE SMAPI] Scanning for malicious files...
+[08:14:58 DEBUG SMAPI] Loading mod metadata...
+[08:14:58 TRACE SMAPI]   Ignored loose files: .git
+[08:14:58 TRACE SMAPI]   Skipped Mods\.backups (folder name starts with a dot).
+[08:14:58 TRACE SMAPI]   Skipped Mods\.SVE Only Mods (folder name starts with a dot).
+[08:14:58 TRACE SMAPI]   Skipped Mods\.test mods (folder name starts with a dot).
+[08:14:58 TRACE SMAPI]   Skipped Mods\.Unused (folder name starts with a dot).
+[08:14:58 DEBUG SMAPI] Loading mods...
+[08:14:59 TRACE SMAPI]    Content Patcher (from Mods\Essential\Framework Mods\ContentPatcher\ContentPatcher.dll, ID: Pathoschild.ContentPatcher, assembly version: 2.9.1)...
+[08:14:59 TRACE SMAPI]    DaisyNiko's Tilesheets (from Mods\Essential\Framework Mods\[CP] DaisyNiko's Tilesheets, ID: DaisyNiko.Tilesheets) [content pack]...
+[08:14:59 TRACE SMAPI]    Blackberry Fields Farm (from Mods\Blackberry Fields Farm\[CP] Blackberry Fields Farm, ID: DaisyNiko.BlackberryFieldsFarm) [content pack]...
+[08:14:59 TRACE SMAPI]    Generic Mod Config Menu (from Mods\Essential\Framework Mods\GenericModConfigMenu\GenericModConfigMenu.dll, ID: spacechase0.GenericModConfigMenu, assembly version: 1.16.0)...
+[08:14:59 TRACE SMAPI]       Detected direct console access (System.Console type) in assembly GenericModConfigMenu.dll.
+[08:14:59 TRACE SMAPI]    Expanded Preconditions Utility (from Mods\Essential\Framework Mods\ExpandedPreconditionsUtility\ExpandedPreconditionsUtility.dll, ID: Cherry.ExpandedPreconditionsUtility, assembly version: 1.1.2)...
+[08:14:59 TRACE SMAPI]    Farm Type Manager (FTM) (from Mods\Essential\Framework Mods\FarmTypeManager\FarmTypeManager.dll, ID: Esca.FarmTypeManager, assembly version: 1.26.1)...
+[08:14:59 TRACE SMAPI]       Detected game patcher in assembly FarmTypeManager.dll.
+[08:14:59 TRACE SMAPI]    Blackberry Fields Farm Spawns (from Mods\Blackberry Fields Farm\[FTM] Blackberry Fields Farm, ID: DaisyNiko.BlackberryFields.FTM) [content pack]...
+[08:14:59 TRACE SMAPI]    CP Farm Registrar (from Mods\CPFarmRegistrar\CPFarmRegistrar.dll, ID: tbonehunter.CPFarmRegistrar, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]       Detected game patcher in assembly CPFarmRegistrar.dll.
+[08:14:59 TRACE SMAPI]    Advanced Save Backup (from Mods\Essential\AdvancedSaveBackup\AdvancedSaveBackup.dll, ID: Omegasis.AdvancedSaveBackup, assembly version: 1.10.0)...
+[08:14:59 TRACE SMAPI]    Always Show Bar Values (from Mods\Essential\AlwaysShowBarValues\AlwaysShowBarValues.dll, ID: Saah.AlwaysShowBarValues, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]    Animal Color Picker (from Mods\Essential\AnimalColorPicker\AnimalColorPicker.dll, ID: tbonehunter.AnimalColorPicker, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]       Detected game patcher in assembly AnimalColorPicker.dll.
+[08:14:59 TRACE SMAPI]    AutoAnimalDoors (from Mods\Essential\AutoAnimalDoors\AutoAnimalDoors.dll, ID: AaronTaggart.AutoAnimalDoors, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]    AutoFillPetBowl (from Mods\Essential\AutoFillPetBowl\AutoFillPetBowl.dll, ID: Siweipancc.AutoFillPetBowl, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]    AutomaticGates (from Mods\Essential\AutomaticGates\AutomaticGates.dll, ID: Rakiin.AutomaticGates, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]    Auto Speed (from Mods\Essential\AutoSpeed\AutoSpeed.dll, ID: Omegasis.AutoSpeed, assembly version: 1.10.0)...
+[08:14:59 TRACE SMAPI]    Confirm Gifts (from Mods\Essential\ConfirmGifts\ConfirmGifts.dll, ID: BadScientist.ConfirmGifts, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]    Event Indicators (from Mods\Essential\EventIndicators\EventIndicators.dll, ID: aedenthorn.EventIndicators, assembly version: 0.1.1)...
+[08:14:59 TRACE SMAPI]       Detected game patcher in assembly EventIndicators.dll.
+[08:14:59 TRACE SMAPI]    Fowl Play (from Mods\Essential\FowlPlay\FowlPlay.dll, ID: tbonehunter.FowlPlay, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]    Console Commands (from Mods\Essential\Framework Mods\ConsoleCommands\ConsoleCommands.dll, ID: SMAPI.ConsoleCommands, assembly version: 4.5.2)...
+[08:14:59 TRACE SMAPI]    Data Layers (from Mods\Essential\Framework Mods\DataLayers\DataLayers.dll, ID: Pathoschild.DataLayers, assembly version: 1.23.0)...
+[08:14:59 TRACE SMAPI]    Debug Mode (from Mods\Essential\Framework Mods\DebugMode\DebugMode.dll, ID: Pathoschild.DebugMode, assembly version: 1.17.4)...
+[08:14:59 TRACE SMAPI]    Esca's Modding Plugins (EMP) (from Mods\Essential\Framework Mods\EscasModdingPlugins\EMP.dll, ID: Esca.EMP, assembly version: 1.7.2)...
+[08:14:59 TRACE SMAPI]       Detected game patcher in assembly EMP.dll.
+[08:14:59 TRACE SMAPI]    Farm Cave Framework (from Mods\Essential\Framework Mods\FarmCaveFramework\FarmCaveFramework.dll, ID: aedenthorn.FarmCaveFramework, assembly version: 1.0.0)...
+[08:14:59 TRACE SMAPI]       Detected game patcher in assembly FarmCaveFramework.dll.
+[08:14:59 TRACE SMAPI]    SpaceCore (from Mods\Essential\Framework Mods\SpaceCore\SpaceCore.dll, ID: spacechase0.SpaceCore, assembly version: 1.28.4)...
+[08:14:59 TRACE SMAPI]       Loading assembly 'SpaceCore.Content.Parser.dll'...
+[08:14:59 TRACE SMAPI]       Loading assembly 'SpaceCore.Content.Engine.dll'...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly SpaceCore.dll.
+[08:15:00 TRACE SMAPI]       Detected possible save serializer change (StardewValley.SaveGame.farmerSerializer field, StardewValley.SaveGame.locationSerializer field, StardewValley.SaveGame.serializer field) in assembly SpaceCore.dll.
+[08:15:00 TRACE SMAPI]       Loading assembly 'SpaceCore.dll'...
+[08:15:00 TRACE SMAPI]    Json Assets (from Mods\Essential\Framework Mods\JsonAssets\JsonAssets.dll, ID: spacechase0.JsonAssets, assembly version: 1.11.11)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly JsonAssets.dll.
+[08:15:00 TRACE SMAPI]    Mail Framework Mod (from Mods\Essential\Framework Mods\MailFrameworkMod\MailFrameworkMod.dll, ID: DIGUS.MailFrameworkMod, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly MailFrameworkMod.dll.
+[08:15:00 TRACE SMAPI]    SV Data Extractor (from Mods\Essential\Framework Mods\SVDataExtractor\SVDataExtractor.dll, ID: tbonehunter.SVDataExtractor, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]    UI Info Suite 2 (from Mods\Essential\Framework Mods\UIInfoSuite2\UIInfoSuite2.dll, ID: Annosz.UiInfoSuite2, assembly version: 2.3.7)...
+[08:15:00 TRACE SMAPI]    LadderLocator (from Mods\Essential\LadderLocator\LadderLocator.dll, ID: ChaosEnergy.LadderLocator, assembly version: 1.5.2)...
+[08:15:00 TRACE SMAPI]       Rewrote LadderLocator.dll to fix 32-bit architecture...
+[08:15:00 TRACE SMAPI]    Lunch Pail (from Mods\Essential\LunchPail\LunchPail.dll, ID: tbonehunter.LunchPail, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]    Mail Services Mod (from Mods\Essential\MailServicesMod\MailServicesMod.dll, ID: Digus.MailServicesMod, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly MailServicesMod.dll.
+[08:15:00 TRACE SMAPI]    Map Editor Extended (from Mods\Essential\MapEdit\MapEdit.dll, ID: aedenthorn.MapEdit, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly MapEdit.dll.
+[08:15:00 TRACE SMAPI]    MoveGreenhousePlot (from Mods\Essential\MoveGreenhousePlot\MoveGreenhousePlot.dll, ID: aedenthorn.MoveGreenhousePlot, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly MoveGreenhousePlot.dll.
+[08:15:00 TRACE SMAPI]    No Collision Mod (from Mods\Essential\NoCollision\NoCollisionMod.dll, ID: tbonehunter.NoCollisionMod, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly NoCollisionMod.dll.
+[08:15:00 TRACE SMAPI]    NoSoilDecayOnFarm (from Mods\Essential\NoSoilDecayOnFarm\NoSoilDecayOnFarm.dll, ID: A_Dude.NoSoilDecayOnFarm, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]    NPC Map Locations (from Mods\Essential\NPCMapLocations\NPCMapLocations.dll, ID: Bouhm.NPCMapLocations, assembly version: 3.5.1)...
+[08:15:00 TRACE SMAPI]    Passable Crops (from Mods\Essential\PassableCrops\PassableCrops.dll, ID: NCarigon.PassableCrops, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly PassableCrops.dll.
+[08:15:00 TRACE SMAPI]    QuickSave (from Mods\Essential\QuickSave\QuickSave.dll, ID: DLX.QuickSave, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly QuickSave.dll.
+[08:15:00 TRACE SMAPI]    Save Backup (from Mods\Essential\SaveBackup\SaveBackup.dll, ID: SMAPI.SaveBackup, assembly version: 4.5.2)...
+[08:15:00 TRACE SMAPI]    Self Checkout (from Mods\Essential\SelfCheckout\SelfCheckout.dll, ID: furyx639.SelfCheckout, assembly version: 1.0.1)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly SelfCheckout.dll.
+[08:15:00 TRACE SMAPI]    SeparateElevatorProgression (from Mods\Essential\SeparateElevatorProgression\SeparateElevatorProgression.dll, ID: Spiderbuttons.SeparateElevatorProgression, assembly version: 2.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly SeparateElevatorProgression.dll.
+[08:15:00 TRACE SMAPI]    ShipAnything (from Mods\Essential\ShipAnything\ShipAnything.dll, ID: berkayylmao.ShipAnything, assembly version: 0.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly ShipAnything.dll.
+[08:15:00 TRACE SMAPI]    Start With Bigger Backpack (from Mods\Essential\StartWithBiggerBackpack\StartWithBiggerBackpack.dll, ID: tbonehunter.StartWithBiggerBackpack, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]    TimeSpeed (from Mods\Essential\TimeSpeed\TimeSpeed.dll, ID: cantorsdust.TimeSpeed, assembly version: 2.8.1)...
+[08:15:00 TRACE SMAPI]    Tool Smart Switch (from Mods\Essential\ToolSmartSwitch\ToolSmartSwitch.dll, ID: aedenthorn.ToolSmartSwitch, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly ToolSmartSwitch.dll.
+[08:15:00 TRACE SMAPI]    Ultimate Fertilizer (from Mods\Essential\UltimateFertilizer\UltimateFertilizer.dll, ID: fox_white25.ultimate_fertilizer, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly UltimateFertilizer.dll.
+[08:15:00 TRACE SMAPI]    What Does Trash Bear Want (from Mods\Essential\WhatDoesTrashBearWant\WhatDoesTrashBearWant.dll, ID: JohnPeters.WhatDoesTrashBearWant, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly WhatDoesTrashBearWant.dll.
+[08:15:00 TRACE SMAPI]    Where's My Items? (from Mods\Essential\WheresMyItems\WheresMyItems.dll, ID: f4iTh.WheresMyItems, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Rewrote WheresMyItems.dll to fix ClickableTextureComponent.draw (added missing optional parameters)...
+[08:15:00 TRACE SMAPI]    Cleaner Farm Buildings (from Mods\Essential\[CP] Cleaner Farm Buildings, ID: Oakstar519.CleanerFarmBuildings) [content pack]...
+[08:15:00 TRACE SMAPI]    (CP) FCF Bats and Shrooms (from Mods\Essential\[CP] FCF BatsAndShrooms, ID: aedenthorn.FCFBatsAndShroomsCP) [content pack]...
+[08:15:00 TRACE SMAPI]    GoodFences (from Mods\GoodFences\GoodFences.dll, ID: tbonehunter.GoodFences, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly GoodFences.dll.
+[08:15:00 TRACE SMAPI]    Set Skill Levels (from Mods\SetSkillLevels\SetSkillLevels.dll, ID: tbonehunter.SetSkillLevels, assembly version: 0.0.0)...
+[08:15:00 TRACE SMAPI]    Auto Forager (from Mods\StanMods\AutoForager\AutoForager.dll, ID: tbonehunter.AutoForager, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]    Auto-Grab Truffles (from Mods\StanMods\AutoGrabTruffles\AutoGrabTruffles.dll, ID: Tsin.AutoGrabTruffles, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly AutoGrabTruffles.dll.
+[08:15:00 TRACE SMAPI]    Automate (from Mods\StanMods\Automate\Automate.dll, ID: Pathoschild.Automate, assembly version: 2.6.1)...
+[08:15:00 TRACE SMAPI]    Better Pigs (from Mods\StanMods\Better Pigs\Better Pigs.dll, ID: MindMeltMax.WinterPigs, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly Better Pigs.dll.
+[08:15:00 TRACE SMAPI]    Better Honey Mead (from Mods\StanMods\BetterHoneyMead\BetterHoneyMead.dll, ID: NCarigon.BetterHoneyMead, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly BetterHoneyMead.dll.
+[08:15:00 TRACE SMAPI]    Better Truffles (from Mods\StanMods\BetterTruffles\BetterTruffles.dll, ID: tem696969696969.BetterTruffles, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly BetterTruffles.dll.
+[08:15:00 TRACE SMAPI]    Bigger Fridges (from Mods\StanMods\BiggerFridges\BiggerFridges.dll, ID: Entoarox.BiggerFridges, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly BiggerFridges.dll.
+[08:15:00 TRACE SMAPI]    Birthday Reminder Mail (from Mods\StanMods\BirthdayReminderMail, ID: Katlamos.BirthdayReminderMail) [content pack]...
+[08:15:00 TRACE SMAPI]    Buildable Ginger Island Farm (from Mods\StanMods\Buildable Ginger Island Farm\BuildableGingerIslandFarm.dll, ID: mouahrara.BuildableGingerIslandFarm, assembly version: 1.1.4)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly BuildableGingerIslandFarm.dll.
+[08:15:00 TRACE SMAPI]    Build Endurance Resurrected (from Mods\StanMods\BuildEnduranceResurrected\BuildEnduranceResurrected.dll, ID: ZerashkO7.BuildEnduranceResurrected, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]    Cheaters Anonymous (from Mods\StanMods\CheatAnon\CheatAnon.dll, ID: tbonehunter.CheatAnon, assembly version: 0.0.0)...
+[08:15:00 TRACE SMAPI]    Chests Anywhere (from Mods\StanMods\ChestsAnywhere\ChestsAnywhere.dll, ID: Pathoschild.ChestsAnywhere, assembly version: 1.30.1)...
+[08:15:00 TRACE SMAPI]    CJB Item Spawner (from Mods\StanMods\CJBItemSpawner\CJBItemSpawner.dll, ID: CJBok.ItemSpawner, assembly version: 2.5.6)...
+[08:15:00 TRACE SMAPI]    CJB Show Item Sell Price (from Mods\StanMods\CJBShowItemSellPrice\CJBShowItemSellPrice.dll, ID: CJBok.ShowItemSellPrice, assembly version: 1.10.6)...
+[08:15:00 TRACE SMAPI]    Colored Honey Labels (from Mods\StanMods\ColoredHoneyLabels\ColoredHoneyLabels.dll, ID: voltaek.ColoredHoneyLabels, assembly version: 2.1.0)...
+[08:15:00 TRACE SMAPI]       Detected game patcher in assembly ColoredHoneyLabels.dll.
+[08:15:00 TRACE SMAPI]    Combat Controls (from Mods\StanMods\CombatControls\CombatControls.dll, ID: DJ-STLN.Krutonium.CombatControls, assembly version: 1.0.0)...
+[08:15:00 TRACE SMAPI]       Rewrote CombatControls.dll for OS...
+[08:15:00 TRACE SMAPI]    CombineManyRings (from Mods\StanMods\CombineManyRings\CombineManyRings.dll, ID: Stari.CombineManyRings, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly CombineManyRings.dll.
+[08:15:01 TRACE SMAPI]    Configure Machine Speed (from Mods\StanMods\ConfigureMachineSpeed\ConfigureMachineSpeed.dll, ID: tbonehunter.ConfigureMachineSpeed, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly ConfigureMachineSpeed.dll.
+[08:15:01 TRACE SMAPI]    Crab Pot Collect Jellies (from Mods\StanMods\CrabPotCollectJellies\CrabPotCollectJellies.dll, ID: Cloudyluna.CrabPotCollectJellies, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly CrabPotCollectJellies.dll.
+[08:15:01 TRACE SMAPI]    Customize Trinkets (from Mods\StanMods\CustomizeTrinkets_1.1.0\CustomizeTrinkets.dll, ID: Dragoon23.CustomizeTrinkets, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly CustomizeTrinkets.dll.
+[08:15:01 TRACE SMAPI]    Custom Spouse Rooms (from Mods\StanMods\CustomSpouseRooms\CustomSpouseRooms.dll, ID: aedenthorn.CustomSpouseRooms, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly CustomSpouseRooms.dll.
+[08:15:01 TRACE SMAPI]    Custom Health and Stamina Start (from Mods\StanMods\CustomStartHealth\CustomStartHealth.dll, ID: misscoriel.hpstam, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Rewrote CustomStartHealth.dll for OS...
+[08:15:01 TRACE SMAPI]    Destroyable Bushes (from Mods\StanMods\DestroyableBushes\DestroyableBushes.dll, ID: Esca.DestroyableBushes, assembly version: 1.5.2)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly DestroyableBushes.dll.
+[08:15:01 TRACE SMAPI]    Expanded Starter Package (from Mods\StanMods\ExpandedStarterPackage\ExpandedStarterPackage.dll, ID: tbonehunter.ExpandedStarterPackage, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly ExpandedStarterPackage.dll.
+[08:15:01 TRACE SMAPI]    Immersive Sprinklers and Scarecrows (from Mods\StanMods\ImmersiveSprinklersAndScarecrows\ImmersiveSprinklersAndScarecrows.dll, ID: aedenthorn.ImmersiveSprinklersAndScarecrows, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly ImmersiveSprinklersAndScarecrows.dll.
+[08:15:01 TRACE SMAPI]    Instant Building Construction and Upgrade (from Mods\StanMods\InstantBuildingConstruction\InstantBuildingConstruction.dll, ID: aedenthorn.InstantBuildingConstruction, assembly version: 0.2.1)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly InstantBuildingConstruction.dll.
+[08:15:01 TRACE SMAPI]    Instant Tool Upgrades (from Mods\StanMods\InstantToolUpgrades\InstantToolUpgrades.dll, ID: binarynova.instanttoolupgrades, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]    NPC Marriageable Framework (from Mods\StanMods\NPCMarriageable\NPCMarriageable.dll, ID: tbonehunter.NPCMarriageable, assembly version: 0.0.0)...
+[08:15:01 TRACE SMAPI]    Permanent Cellar (from Mods\StanMods\PermanentCellar\PermanentCellar.dll, ID: CF.PermanentCellar, assembly version: 1.2.4)...
+[08:15:01 TRACE SMAPI]    Preexisting Relationship Redux (from Mods\StanMods\PreexistingRelationship\PreexistingRelationship.dll, ID: tbonehunter.PreexistingRelationshipRedux, assembly version: 2.0.0)...
+[08:15:01 TRACE SMAPI]    QuickSave Automated (from Mods\StanMods\QuickSaveAutomated\QuickSaveAutomated.dll, ID: tbonehunter.QuickSaveAutomated, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]    Relocate Buildings And Farm Animals (from Mods\StanMods\Relocate Buildings And Farm Animals\RelocateBuildingsAndFarmAnimals.dll, ID: mouahrara.RelocateBuildingsAndFarmAnimals, assembly version: 1.0.3)...
+[08:15:01 TRACE SMAPI]       Detected game patcher in assembly RelocateBuildingsAndFarmAnimals.dll.
+[08:15:01 TRACE SMAPI]    Remote Fridge Storage (from Mods\StanMods\RemoteFridgeStorage\RemoteFridgeStorage.dll, ID: EternalSoap.RemoteFridgeStorage, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]    ReRegeneration (from Mods\StanMods\ReRegeneration\ReRegeneration.dll, ID: lrsk_sdvm_rerg.0925160827, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]       Failed loading PDB for 'ReRegeneration.dll'. Technical details:
+Mono.Cecil.Cil.SymbolsNotMatchingException: Symbols were found but are not matching the assembly
+   at Mono.Cecil.ModuleDefinition.ReadSymbols(ISymbolReader reader, Boolean throwIfSymbolsAreNotMaching)
+   at Mono.Cecil.ModuleReader.ReadSymbols(ModuleDefinition module, ReaderParameters parameters)
+   at Mono.Cecil.ModuleReader.CreateModule(Image image, ReaderParameters parameters)
+   at StardewModdingAPI.Framework.ModLoading.AssemblyLoader.GetReferencedLocalAssemblies(FileInfo file, HashSet`1 visitedAssemblyNames, IAssemblyResolver assemblyResolver)+MoveNext() in /home/runner/work/SMAPI/SMAPI/src/SMAPI/Framework/ModLoading/AssemblyLoader.cs:line 280
+[08:15:01 TRACE SMAPI]    What Do You Want (from Mods\StanMods\WhatDoYouWant\WhatDoYouWant.dll, ID: JohnPeters.WhatDoYouWant, assembly version: 1.0.0)...
+[08:15:01 TRACE SMAPI]    (CP) Better Honey Mead (from Mods\StanMods\[CP] Better Honey Mead, ID: NCarigon.BetterHoneyMeadCP) [content pack]...
+[08:15:01 TRACE SMAPI]    Jealousy Responses Begone (from Mods\StanMods\[CP] Jealousy Responses Begone, ID: agentlyoko.nomorejealousy) [content pack]...
+[08:15:01 TRACE SMAPI]    Preexisting Relationship - All Spouses (from Mods\StanMods\[CP] PreexistingRelationship, ID: tbonehunter.PreexistingRelationship.AllSpouses) [content pack]...
+[08:15:01 TRACE SMAPI]    Robin Is Marriageable (from Mods\StanMods\[CP] RobinMarriageable, ID: tbonehunter.RobinMarriageable) [content pack]...
+[08:15:01 INFO  SMAPI] Loaded 81 mods:
+[08:15:01 INFO  SMAPI]    Advanced Save Backup 1.12.1 by Alpha_Omegasis | Backs up your save files when loading SMAPI and every in game night when saving.
+[08:15:01 INFO  SMAPI]    Always Show Bar Values 1.5.0 by Saah | Shows numeric values for health and stamina anytime the bars are visible
+[08:15:01 INFO  SMAPI]    Animal Color Picker 1.1.0 by tbonehunter | Lets you choose White or Brown or Random (vanilla) when purchasing Chickens or Cows.
+[08:15:01 INFO  SMAPI]    Auto Forager 1.0.1 by tbonehunter | Adds a craftable Auto Forager machine that collects forageable items each day. Place it on the farm and let it do the work. Requires SV Data Extractor.
+[08:15:01 INFO  SMAPI]    Auto Speed 1.11.0 by Alpha_Omegasis | Got to go fast!
+[08:15:01 INFO  SMAPI]    Auto-Grab Truffles 1.1.0 by Tsin | Auto-grabbers in the barn will collect truffles.
+[08:15:01 INFO  SMAPI]    AutoAnimalDoors 4.2.0 by Aaron Taggart | Open and close the doors automatically for your animals.
+[08:15:01 INFO  SMAPI]    AutoFillPetBowl 0.0.3 by Siweipancc | Auto fill pet's bowl.
+[08:15:01 INFO  SMAPI]    Automate 2.6.1 by Pathoschild | Lets you automate crafting machines, fruit trees, and more by connecting them to chests.
+[08:15:01 INFO  SMAPI]    AutomaticGates 2.5.5 by Rakiin aKa ScheKaa | Opens and closes gates automatically
+[08:15:01 INFO  SMAPI]    Better Honey Mead 1.1.0 by NCarigon | Allows flavored honey to brew into flavored mead.
+[08:15:01 INFO  SMAPI]    Better Pigs 2.0.5 by MindMeltMax | Adds a bunch of small gameplay improvements for pigs (and other animals)
+[08:15:01 INFO  SMAPI]    Better Truffles 1.0.5 by temisthem | Pigs can dig for truffles in tall grass.
+[08:15:01 INFO  SMAPI]    Bigger Fridges 1.1.1 by Entoarox | Makes all fridges as big as a Big Chest.
+[08:15:01 INFO  SMAPI]    Build Endurance Resurrected 1.11.0 by Zerashk07 (originally Alpha_Omegasis) | Increase your maximum energy as you play.
+[08:15:01 INFO  SMAPI]    Buildable Ginger Island Farm 1.1.4 by mouahrara | Turn the Ginger Island farm into a buildable location.
+[08:15:01 INFO  SMAPI]    Cheaters Anonymous 1.0.0 by CJBok and Pathoschild code modified by tbonehunter | CJB Cheats Menu with a built-in sponsor for accountability
+[08:15:01 INFO  SMAPI]    Chests Anywhere 1.30.1 by Pathoschild | Access your chests from anywhere and organize them your way.
+[08:15:01 INFO  SMAPI]    CJB Item Spawner 2.5.6 by CJBok and Pathoschild | Simple in-game item spawner!
+[08:15:01 INFO  SMAPI]    CJB Show Item Sell Price 1.10.6 by CJBok and Pathoschild | Show item sell price in your inventory!
+[08:15:01 INFO  SMAPI]    Colored Honey Labels 2.1.0 by voltaek | Colors honey bottle labels, lids, etc. automatically by honey type.
+[08:15:01 INFO  SMAPI]    Combat Controls 2.0.1 by DJ-STLN, Krutonium | A simple fix to the game controls that properly turns the character in the direction of your MouseClick.
+[08:15:01 INFO  SMAPI]    CombineManyRings 1.1.0 by Stari | Allows you to combine already combined rings.
+[08:15:01 INFO  SMAPI]    Configure Machine Speed 1.1.1 by tbonehunter | Configure processing speed for any machine as a percentage, with per-machine overrides and multiplayer support.
+[08:15:01 INFO  SMAPI]    Confirm Gifts 1.0.0 by BadScientist | Asks the player for confirmation before giving items to NPCs.
+[08:15:01 INFO  SMAPI]    Console Commands 4.5.2 by SMAPI | Adds SMAPI console commands that let you manipulate the game.
+[08:15:01 INFO  SMAPI]    Content Patcher 2.9.1 by Pathoschild | Loads content packs which edit game data, images, and maps without changing the game files.
+[08:15:01 INFO  SMAPI]    CP Farm Registrar 1.0.1 by tbonehunter | Detects Content Patcher farm mods that silently replace vanilla farm maps and registers them as unique selectable farm types, and allows selection of vanilla farm types that those mods would replace.
+[08:15:01 INFO  SMAPI]    Crab Pot Collect Jellies 1.2.1 by Cloudyluna | Allow crab pots to collect aquatic jellies.
+[08:15:01 INFO  SMAPI]    Custom Health and Stamina Start 1.0.0 by MissCoriel | Customize Health and Stamina for start of the game.
+[08:15:01 INFO  SMAPI]    Custom Spouse Rooms 0.9.4 by aedenthorn | Custom spouse rooms.
+[08:15:01 INFO  SMAPI]    Customize Trinkets 1.1.0 by Dragoon23 | Customize Trinkets.
+[08:15:01 INFO  SMAPI]    Data Layers 1.23.0 by Pathoschild | Overlays the world with visual data like accessibility, bee/Junimo/scarecrow/sprinkler coverage, etc.
+[08:15:01 INFO  SMAPI]    Debug Mode 1.17.4 by Pathoschild | Enables an overlay which provides debug information and unlocks the game's debug hotkeys.
+[08:15:01 INFO  SMAPI]    Destroyable Bushes 1.5.2 by Esca | Allows the player to destroy bushes with an axe.
+[08:15:01 INFO  SMAPI]    Esca's Modding Plugins (EMP) 1.7.2 by Esca | A framework that adds miscellaneous features for other mods to use.
+[08:15:01 INFO  SMAPI]    Event Indicators 0.1.1 by aedenthorn | Event Indicators.
+[08:15:01 INFO  SMAPI]    Expanded Preconditions Utility 1.1.2 by Cherry | A condition checking system designed for use by other mods, in the format of event preconditions
+[08:15:01 INFO  SMAPI]    Expanded Starter Package 1.2.0 by tbonehunter | Customize the items you receive when starting a new game. Supports all vanilla items and respects quantity/quality attributes.
+[08:15:01 INFO  SMAPI]    Farm Cave Framework 0.4.0 by aedenthorn | Farm Cave Framework.
+[08:15:01 INFO  SMAPI]    Farm Type Manager (FTM) 1.26.1 by Esca | Allows custom spawning of content from each farm type: forage, large objects, ore, and monsters
+[08:15:01 INFO  SMAPI]    Fowl Play 1.0.0 by tbonehunter | Start any farm with a coop and two chickens
+[08:15:01 INFO  SMAPI]    Generic Mod Config Menu 1.16.0 by kittycatcasey | Adds an in-game UI to edit other mods' config options (for mods which support it).
+[08:15:01 INFO  SMAPI]    GoodFences 2.1.0-alpha by tbonehunter | Multiplayer functions as multiple single players.
+[08:15:01 INFO  SMAPI]    Immersive Sprinklers and Scarecrows 0.5.0 by aedenthorn | Immersive Sprinklers and Scarecrows.
+[08:15:01 INFO  SMAPI]    Instant Building Construction and Upgrade 0.3.0 by aedenthorn | Causes building construction and upgrade to finish immediately upon purchase.
+[08:15:01 INFO  SMAPI]    Instant Tool Upgrades 2.0.0 by Binarynova | This mod makes Clint give you your upgraded tools immediately. No more waiting two days for your important tools!
+[08:15:01 INFO  SMAPI]    Json Assets 1.11.11 by kittycatcasey | Lets content packs add custom content to the game.
+[08:15:01 INFO  SMAPI]    LadderLocator 1.5.2 by ChaosEnergy | Finds ladders and ores in the mines.
+[08:15:01 INFO  SMAPI]    Lunch Pail 2.0.1 by tbonehunter | Consume food without user command or cutscene when health or stamina drops below a configurable threshold.
+[08:15:01 INFO  SMAPI]    Mail Framework Mod 1.20.0 by Digus | Utility classes and content packs to add mail into the game.
+[08:15:01 INFO  SMAPI]    Mail Services Mod 1.6.2 by Digus | Mail services to send and receive item using the mailbox.
+[08:15:01 INFO  SMAPI]    Map Editor Extended 1.4.2 by aedenthorn | Enables in-game editing of map tiles.
+[08:15:01 INFO  SMAPI]    MoveGreenhousePlot 0.1.0 by aedenthorn | MoveGreenhousePlot.
+[08:15:01 INFO  SMAPI]    No Collision Mod 1.2.1 by tbonehunter | Allows the farmer to pass through pets, horses, junimos, villagers, farm animals, and monsters without collision. Monster pass-through does no damage to player. Added toggle for pass through anything (no clip). Fully configurable via GMCM.
+[08:15:01 INFO  SMAPI]    NoSoilDecayOnFarm 1.0.10 by A_Dude | Prevents 'hoe dirt' from reverting to normal ground on the farm
+[08:15:01 INFO  SMAPI]    NPC Map Locations 3.5.1 by Bouhm | Shows NPCs and farmers on a modified map page for accurate tracking.
+[08:15:01 INFO  SMAPI]    NPC Marriageable Framework 1.0.0 by tbonehunter | Framework for making non-marriageable NPCs romanceable and marriageable. Can be used standalone to enable all NPCs, or as a dependency for NPC-specific content packs.
+[08:15:01 INFO  SMAPI]    Passable Crops 1.2.3 by NCarigon | Allows farmers to pass through crops, trees, and some related objects.
+[08:15:01 INFO  SMAPI]    Permanent Cellar 1.2.4 by CyanFire | Makes the cellar accessable for all farmhouse/cabin sizes, custom maps & multiplayer compatible
+[08:15:01 INFO  SMAPI]    Preexisting Relationship Redux 2.0.0 by tbonehunter (original by spacechase0) | Start the game already married to an NPC.
+[08:15:01 INFO  SMAPI]    QuickSave 1.4.0 by DeLiXx | F5 to Quicksave, F7 to Quickload
+[08:15:01 INFO  SMAPI]    QuickSave Automated 1.0.0 by tbonehunter | Automatically triggers QuickSave at configurable intervals based on game time or real time. Supports auto-detection of time-stop mods.
+[08:15:01 INFO  SMAPI]    Relocate Buildings And Farm Animals 1.0.3 by mouahrara | Allows you to relocate buildings and farm animals to new locations.
+[08:15:01 INFO  SMAPI]    Remote Fridge Storage 1.10.2 by EternalSoap | Allows you to use ingredients inside chests while cooking
+[08:15:01 INFO  SMAPI]    ReRegeneration 2.2.0 by littleraskol | Provides configurable health and stamina regeneration under a variety of conditions.
+[08:15:01 INFO  SMAPI]    Save Backup 4.5.2 by SMAPI | Automatically backs up all your saves once per day into its folder.
+[08:15:01 INFO  SMAPI]    Self Checkout 1.0.1 by LeFauxMatt | Self Checkout allows you to access shops without the owner being nearby.
+[08:15:01 INFO  SMAPI]    SeparateElevatorProgression 1.0.0 by Spiderbuttons | Mine elevator progress is no longer shared in multiplayer.
+[08:15:01 INFO  SMAPI]    Set Skill Levels 1.1.0 by tbonehunter | Allows adjusting player skill levels up or down via the in-game menu. Skill regression is an opt-in feature with possible unintended consequences.
+[08:15:01 INFO  SMAPI]    ShipAnything 1.3.4 by berkayylmao | Allows you to put anything into the shipping bin.
+[08:15:01 INFO  SMAPI]    SpaceCore 1.28.4 by kittycatcasey | The space-iest of cores. (Framework mod)
+[08:15:01 INFO  SMAPI]    Start With Bigger Backpack 1.0.1 by tbonehunter | Start a new game with a larger backpack (24 or 36 slots) instead of the default 12.
+[08:15:01 INFO  SMAPI]    SV Data Extractor 3.1.0 by tbonehunter | Comprehensive data extractor for Stardew Valley. Exports item registry, game state, and world state data via configurable hotkeys. Configure toggles and hotkeys via Generic Mod Config Menu.
+[08:15:01 INFO  SMAPI]    TimeSpeed 2.8.1 by cantorsdust and Pathoschild | Lets you control the flow of time in the game: speed it up, slow it down, or freeze it altogether.
+[08:15:01 INFO  SMAPI]    Tool Smart Switch 0.8.2 by aedenthorn | Tool Smart Switch.
+[08:15:01 INFO  SMAPI]    UI Info Suite 2 2.3.7 by Annosz | Adds a useful information to the user interface. Based on Cdaragorn's excellent UI Info Suite.
+[08:15:01 INFO  SMAPI]    Ultimate Fertilizer 1.2.5 by fox_white25 | Modify aspects of fertilizers in a configurable way
+[08:15:01 INFO  SMAPI]    What Do You Want 1.3.0 by John Peters (you know, the farmer?) | View lists of requirements to complete parts of the game.
+[08:15:01 INFO  SMAPI]    What Does Trash Bear Want 1.0.1 by John Peters (you know, the farmer?) | Shows the name of the item that Trash Bear wants.
+[08:15:01 INFO  SMAPI]    Where's My Items? 1.3.0 by f4iTh | Helps you find the items you're seeking for.
+
+[08:15:01 INFO  SMAPI] Loaded 10 content packs:
+[08:15:01 INFO  SMAPI]    (CP) Better Honey Mead 1.1.0 by NCarigon | for Content Patcher | Allows flavored honey to brew into flavored mead.
+[08:15:01 INFO  SMAPI]    (CP) FCF Bats and Shrooms 0.2.1 by aedenthorn | for Content Patcher | CP FCF Bats and Shrooms
+[08:15:01 INFO  SMAPI]    Birthday Reminder Mail 1.2.0 by Katlamos | for Content Patcher | Adds Birthday Reminders via mail with gift suggestions
+[08:15:01 INFO  SMAPI]    Blackberry Fields Farm 1.4.0 by DaisyNiko | for Content Patcher
+[08:15:01 INFO  SMAPI]    Blackberry Fields Farm Spawns 1.4.0 by DaisyNiko | for Farm Type Manager (FTM)
+[08:15:01 INFO  SMAPI]    Cleaner Farm Buildings 1.2.0 by Oakstar519 | for Content Patcher | Cleans up barns, coops, and the cellar. Optionally removes barrels and hay.
+[08:15:01 INFO  SMAPI]    DaisyNiko's Tilesheets 1.12.0 by DaisyNiko | for Content Patcher
+[08:15:01 INFO  SMAPI]    Jealousy Responses Begone 1.1.0 by Agent Lyoko | for Content Patcher | Removes jealousy responses from spouses. Optionally can configure to specific non-jealous lines instead on a per-spouse basis.
+[08:15:01 INFO  SMAPI]    Preexisting Relationship - All Spouses 1.0.0 by tbonehunter | for Content Patcher | Adds all non-romanceable vanilla NPCs as marriageable spouses for use with Preexisting Relationship. Includes marriage dialogue, schedules, and gift taste adjustments.
+[08:15:01 INFO  SMAPI]    Robin Is Marriageable 0.1.0 by tbonehunter | for Content Patcher | Adds a storyline where Robin and Demetrius divorce, making Robin romanceable and marriageable. Requires the NPC Marriageable Framework and Custom Spouse Rooms.
+
+[08:15:01 WARN  SMAPI]    Changed save serializer
+[08:15:01 WARN  SMAPI]    --------------------------------------------------
+[08:15:01 WARN  SMAPI]       These mods change the save serializer. They may corrupt your save files, or make them unusable if
+[08:15:01 WARN  SMAPI]       you uninstall these mods.
+
+[08:15:01 WARN  SMAPI]       - SpaceCore
+
+[08:15:01 INFO  SMAPI]    Patched game code
+[08:15:01 INFO  SMAPI]    --------------------------------------------------
+[08:15:01 INFO  SMAPI]       These mods directly change the game code. They're more likely to cause errors or bugs in-game; if
+[08:15:01 INFO  SMAPI]       your game has issues, try removing these first. Otherwise you can ignore this warning.
+
+[08:15:01 INFO  SMAPI]       - Animal Color Picker
+[08:15:01 INFO  SMAPI]       - Auto-Grab Truffles
+[08:15:01 INFO  SMAPI]       - Better Honey Mead
+[08:15:01 INFO  SMAPI]       - Better Pigs
+[08:15:01 INFO  SMAPI]       - Better Truffles
+[08:15:01 INFO  SMAPI]       - Bigger Fridges
+[08:15:01 INFO  SMAPI]       - Buildable Ginger Island Farm
+[08:15:01 INFO  SMAPI]       - Colored Honey Labels
+[08:15:01 INFO  SMAPI]       - CombineManyRings
+[08:15:01 INFO  SMAPI]       - Configure Machine Speed
+[08:15:01 INFO  SMAPI]       - CP Farm Registrar
+[08:15:01 INFO  SMAPI]       - Crab Pot Collect Jellies
+[08:15:01 INFO  SMAPI]       - Custom Spouse Rooms
+[08:15:01 INFO  SMAPI]       - Customize Trinkets
+[08:15:01 INFO  SMAPI]       - Destroyable Bushes
+[08:15:01 INFO  SMAPI]       - Esca's Modding Plugins (EMP)
+[08:15:01 INFO  SMAPI]       - Event Indicators
+[08:15:01 INFO  SMAPI]       - Expanded Starter Package
+[08:15:01 INFO  SMAPI]       - Farm Cave Framework
+[08:15:01 INFO  SMAPI]       - Farm Type Manager (FTM)
+[08:15:01 INFO  SMAPI]       - GoodFences
+[08:15:01 INFO  SMAPI]       - Immersive Sprinklers and Scarecrows
+[08:15:01 INFO  SMAPI]       - Instant Building Construction and Upgrade
+[08:15:01 INFO  SMAPI]       - Json Assets
+[08:15:01 INFO  SMAPI]       - Mail Framework Mod
+[08:15:01 INFO  SMAPI]       - Mail Services Mod
+[08:15:01 INFO  SMAPI]       - Map Editor Extended
+[08:15:01 INFO  SMAPI]       - MoveGreenhousePlot
+[08:15:01 INFO  SMAPI]       - No Collision Mod
+[08:15:01 INFO  SMAPI]       - Passable Crops
+[08:15:01 INFO  SMAPI]       - QuickSave
+[08:15:01 INFO  SMAPI]       - Relocate Buildings And Farm Animals
+[08:15:01 INFO  SMAPI]       - Self Checkout
+[08:15:01 INFO  SMAPI]       - SeparateElevatorProgression
+[08:15:01 INFO  SMAPI]       - ShipAnything
+[08:15:01 INFO  SMAPI]       - SpaceCore
+[08:15:01 INFO  SMAPI]       - Tool Smart Switch
+[08:15:01 INFO  SMAPI]       - Ultimate Fertilizer
+[08:15:01 INFO  SMAPI]       - What Does Trash Bear Want
+
+[08:15:01 TRACE SMAPI]    Direct console access
+[08:15:01 TRACE SMAPI]    --------------------------------------------------
+[08:15:01 TRACE SMAPI]       These mods access the SMAPI console window directly. This is more fragile, and their output may not
+[08:15:01 TRACE SMAPI]       be logged by SMAPI.
+
+[08:15:01 TRACE SMAPI]       - Generic Mod Config Menu
+
+[08:15:01 DEBUG SMAPI]    No update keys
+[08:15:01 DEBUG SMAPI]    --------------------------------------------------
+[08:15:01 DEBUG SMAPI]       These mods have no update keys in their manifest. SMAPI may not notify you about updates for these
+[08:15:01 DEBUG SMAPI]       mods. Consider notifying the mod authors about this problem.
+
+[08:15:01 DEBUG SMAPI]       - Auto Forager
+[08:15:01 DEBUG SMAPI]       - NPC Marriageable Framework
+[08:15:01 DEBUG SMAPI]       - Preexisting Relationship - All Spouses
+[08:15:01 DEBUG SMAPI]       - Preexisting Relationship Redux
+[08:15:01 DEBUG SMAPI]       - QuickSave Automated
+[08:15:01 DEBUG SMAPI]       - Robin Is Marriageable
+[08:15:01 DEBUG SMAPI]       - Set Skill Levels
+[08:15:01 DEBUG SMAPI]       - SV Data Extractor
+
+[08:15:01 DEBUG SMAPI] Launching mods...
+[08:15:01 TRACE SMAPI]    Found mod-provided API (ContentPatcher.Framework.ContentPatcherAPI).
+[08:15:01 TRACE game] Registered trigger action handler 'spacechase0.GenericModConfigMenu_OpenModConfig'.
+[08:15:01 TRACE SMAPI]    Found mod-provided API (ExpandedPreconditionsUtility.Framework.ConditionsChecker).
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_DisableFurniturePickup": postfixing 3 implementations of SDV method "Furniture.canBeRemoved(Farmer)".
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_InstantKillImmunity": prefixing SDV method "HungryFrogCompanion.tongueReachedMonster".
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_OptimizeMonsterCode": prefixing SDV method "GameLocation.isCollidingPosition".
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_OptimizeMonsterCode": prefixing SDV method "Monster.findPlayer".
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_OptimizeMonsterCode": postfixing SDV method "Monster.findPlayer".
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_StunImmunity": prefixing SDV method "DebuffingProjectile.behaviorOnCollisionWithMonster".
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_ToggleExtraLoot": postfixing 12 implementations of SDV method "Monster.getExtraDropitems()".
+[08:15:01 TRACE Farm Type Manager (FTM)] Applying Harmony patch "HarmonyPatch_UpdateCursorOverPlacedItem": postfixing SDV method "Utility.canGrabSomethingFromHere(int, int, Farmer)".
+[08:15:04 DEBUG Animal Color Picker] Animal Color Picker loaded.
+[08:15:04 TRACE SMAPI]    Found mod-provided API (Omegasis.AutoSpeed.Framework.AutoSpeedAPI).
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_BedPlacement": postfixing method "GameLocation.CanPlaceThisFurnitureHere(Furniture)".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_PassOutSafely": transpiling method "Farmer.performPassoutWarp(Farmer, string, Point, bool)".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_CustomOrderBoards": postfixing method "GameLocation.PerformAction(string[], Farmer, Location)".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_CustomOrderBoards": postfixing method "SpecialOrder.UpdateAvailableSpecialOrders(bool)".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_DestroyableBushes": postfixing method "Bush.isDestroyable()".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_FishLocations": prefixing method "GameLocation.getFish".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_FishLocations": prefixing method "GameLocation.GetFishFromLocationData".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_FishLocations": postfixing every implementation of method "GameLocation.GetCrabPotFishForTile".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] -- Postfixing method "GameLocation.GetCrabPotFishForTile".
+[08:15:04 TRACE Esca's Modding Plugins (EMP)] Applying Harmony patch "HarmonyPatch_AllowMiniFridges": prefixing method "Object.placementAction(GameLocation, int, int, Farmer)".
+[08:15:04 TRACE SMAPI]    Found mod-provided API (EscasModdingPlugins.EmpApi).
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_PlaySound'.
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_ShowHudMessage'.
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_PlayEvent'.
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_DamageCurrentFarmer'.
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_ApplyBuff'.
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_OpenGuidebook'.
+[08:15:05 TRACE game] Registered event command: damageFarmer
+[08:15:05 TRACE game] Registered event command: giveHat
+[08:15:05 TRACE game] Registered event command: setDating
+[08:15:05 TRACE game] Registered event command: setEngaged
+[08:15:05 TRACE game] Registered event command: totemWarpEffect
+[08:15:05 TRACE game] Registered event command: setActorScale
+[08:15:05 TRACE game] Registered event command: cycleActorColors
+[08:15:05 TRACE game] Registered event command: flash
+[08:15:05 TRACE game] Registered event command: setRaining
+[08:15:05 TRACE game] Registered event command: screenShake
+[08:15:05 TRACE game] Registered event command: setZoom
+[08:15:05 TRACE game] Registered event command: smoothZoom
+[08:15:05 TRACE game] Registered event command: switchEventFull
+[08:15:05 TRACE game] Registered event command: reSetUpCharacters
+[08:15:05 TRACE game] Registered trigger type for Data/Triggers: spacechase0.SpaceCore_OnItemUsed.
+[08:15:05 TRACE game] Registered trigger type for Data/Triggers: spacechase0.SpaceCore_OnItemEaten.
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_TriggerSpawnGroup'.
+[08:15:05 TRACE game] Registered trigger action handler 'spacechase0.SpaceCore_ClearSetPiecesFromSpawnable'.
+[08:15:05 TRACE SpaceCore] NPC.draw: inserting mul at 36
+[08:15:05 TRACE SpaceCore] NPC.draw: inserting mul at 42
+[08:15:05 TRACE SpaceCore] NPC.draw: inserting mul at 47
+[08:15:05 TRACE SpaceCore] NPC.draw: replacing Color.White at 139
+[08:15:05 TRACE SpaceCore] NPC.draw: replacing Color.White at 277
+[08:15:05 TRACE SpaceCore] NPC.draw: inserting vec2 mul at 303
+[08:15:05 TRACE SpaceCore] NPC.draw: replacing SpriteBatch.Draw at 324
+[08:15:05 TRACE SpaceCore] NPC.DrawBreathing: replacing Color.White at 283
+[08:15:05 TRACE SpaceCore] NPC.DrawBreathing: inserting vec2 mul/add at 308
+[08:15:05 TRACE SpaceCore] NPC.DrawBreathing: replacing Draw at 329
+[08:15:05 TRACE SpaceCore] Found crafting recipe constructor in Void layoutRecipes(System.Collections.Generic.List`1[System.String])!
+[08:15:05 TRACE SpaceCore] Found first ldloc.s for ClickableTextureComponent in Void layoutRecipes(System.Collections.Generic.List`1[System.String]); storing potential override w/ recipeLocal=StardewValley.CraftingRecipe (9)
+[08:15:05 TRACE SpaceCore] Found crafting recipe constructor in System.String createDescription(System.String)!
+[08:15:06 TRACE SMAPI]    Found mod-provided API (SpaceCore.Api).
+[08:15:06 TRACE SMAPI]    Found mod-provided API (JsonAssets.Api).
+[08:15:06 TRACE SMAPI]    Found mod-provided API (MailFrameworkMod.Api.MailFrameworkModApi).
+[08:15:06 TRACE SMAPI]    Found mod-provided API (SVDataExtractor.Api.SVDataExtractorAPI).
+[08:15:06 TRACE Lunch Pail] Requested cache invalidation for 'Data/Objects'.
+[08:15:06 TRACE SMAPI] Invalidated 0 cache entries.
+[08:15:06 TRACE Lunch Pail] Requested cache invalidation for 'Data/CraftingRecipes'.
+[08:15:06 TRACE SMAPI] Invalidated 0 cache entries.
+[08:15:06 DEBUG Lunch Pail] Lunch Pail loaded.
+[08:15:06 INFO  No Collision Mod] No Collision Mod loaded. Config: Pets=True, Horses=False, Junimos=True, Villagers=False, FarmAnimals=True, Monsters=True, AllObjects=False
+[08:15:06 INFO  No Collision Mod] Harmony patches applied successfully.
+[08:15:06 INFO  No Collision Mod] No Collision Mod: Event handlers registered successfully.
+[08:15:06 TRACE SMAPI]    Found mod-provided API (QuickSave.API.QuickSaveAPI).
+[08:15:06 TRACE Save Backup] Already backed up today.
+[08:15:06 INFO  Self Checkout] Config Initialized
+            ExcludedShops: Concessions,DesertFestival_Abigail,DesertFestival_Alex,DesertFestival_Caroline,DesertFestival_Clint,DesertFestival_Demetrius,DesertFestival_EggShop,DesertFestival_Elliott,DesertFestival_Emily,DesertFestival_Evelyn,DesertFestival_George,DesertFestival_Gus,DesertFestival_Haley,DesertFestival_Harvey,DesertFestival_Jas,DesertFestival_Jodi,DesertFestival_Kent,DesertFestival_Leah,DesertFestival_Leo,DesertFestival_Marnie,DesertFestival_Maru,DesertFestival_Pam,DesertFestival_Penny,DesertFestival_Pierre,DesertFestival_Robin,DesertFestival_Sam,DesertFestival_Sebastian,DesertFestival_Shane,DesertFestival_Vincent,Festival_DanceOfTheMoonlightJellies_Pierre,Festival_EggFestival_Pierre,Festival_FeastOfTheWinterStar_Pierre,Festival_FestivalOfIce_TravelingMerchant,Festival_FlowerDance_Pierre,Festival_Luau_Pierre,Festival_NightMarket_DecorationBoat,Festival_NightMarket_MagicBoat_Day1,Festival_NightMarket_MagicBoat_Day2,Festival_NightMarket_MagicBoat_Day3,Festival_SpiritsEve_Pierre,Festival_StardewValleyFair_StarTokens,HatMouse,Hospital,IceCreamStand,Joja,JojaFurnitureCatalogue,JunimoFurnitureCatalogue,ResortBar,RetroFurnitureCatalogue,TrashFurnitureCatalogue
+                ForceOpen: LeftShift, RightShift
+               HeartLevel: 0
+
+[08:15:06 DEBUG Start With Bigger Backpack] Initialized with starting backpack size: 36
+[08:15:06 TRACE SMAPI]    Found mod-provided API (ToolSmartSwitch.ToolSmartSwitchAPI).
+[08:15:07 INFO  Ultimate Fertilizer] Plugin is now working.
+[08:15:07 TRACE SMAPI]    Found mod-provided API (UltimateFertilizer.ExposedApi).
+[08:15:07 DEBUG GoodFences] [PATCH] Applying OwnershipTagPatches...
+[08:15:07 DEBUG GoodFences] [PATCH] OwnershipTagPatches applied successfully.
+[08:15:07 DEBUG GoodFences] Automate compatibility patches applied successfully.
+[08:15:07 DEBUG GoodFences] Applied crop enforcement patches (plant + harvest + tool protection)
+[08:15:07 DEBUG GoodFences] Applied machine enforcement patches
+[08:15:07 DEBUG GoodFences] Applied chest enforcement patches (vanilla + Chests Anywhere)
+[08:15:07 DEBUG GoodFences] Applied pasture enforcement patches
+[08:15:07 DEBUG GoodFences] Applied shipping bin enforcement patch
+[08:15:07 INFO  GoodFences] GoodFences v2.1 loaded — Step 2A enforcement active.
+[08:15:07 TRACE SMAPI]    Found mod-provided API (Pathoschild.Stardew.Automate.Framework.AutomateAPI).
+[08:15:07 TRACE SMAPI]    Found mod-provided API (BetterPigs.API).
+[08:15:07 TRACE Cheaters Anonymous] Started with menu key P.
+[08:15:07 TRACE SMAPI]    Found mod-provided API (Pathoschild.Stardew.ChestsAnywhere.Framework.ChestsAnywhereApi).
+[08:15:07 TRACE CJB Item Spawner] Started with menu key I.
+[08:15:07 DEBUG Configure Machine Speed] Configure Machine Speed initialized.
+[08:15:07 TRACE SMAPI]    Found mod-provided API (CustomSpouseRooms.CustomSpouseRoomsAPI).
+[08:15:07 INFO  Expanded Starter Package] Expanded Starter Package initializing...
+[08:15:07 DEBUG Expanded Starter Package] Harmony patches applied successfully.
+[08:15:07 INFO  Expanded Starter Package] Expanded Starter Package loaded. Enabled: True, Mode: Merge, Items configured: 27
+[08:15:07 TRACE Immersive Sprinklers and Scarecrows] Transpiling Farm.addCrows
+[08:15:07 TRACE Immersive Sprinklers and Scarecrows] Adding check for scarecrow at vector
+[08:15:07 TRACE SMAPI]    Found mod-provided API (ImmersiveSprinklersAndScarecrows.ImmersiveApi).
+[08:15:07 INFO  NPC Marriageable Framework] NPC Marriageable framework loaded.
+[08:15:07 TRACE SMAPI]    Found mod-provided API (NPCMarriageable.NPCMarriageableApiImpl).
+[08:15:07 TRACE SMAPI]    Found mod-provided API (RemoteFridgeStorage.API.RemoteFridgeApi).
+[08:15:07 INFO  ReRegeneration] ReRegeneration => Initialized
+[08:15:07 DEBUG SMAPI] Mods loaded and ready!
+[08:15:07 TRACE SMAPI] Checking for known software conflicts...
+[08:15:07 TRACE SMAPI]    None found!
+[08:15:08 TRACE SMAPI] Checking for updates...
+[08:15:08 TRACE SMAPI] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:08 TRACE SMAPI] Auto Forager edited Data/BigCraftables.
+[08:15:08 TRACE SMAPI] Automate edited Data/BigCraftables.
+[08:15:08 TRACE Fowl Play] Fowl Play: Injected Coop Placement Stake into Data/Objects.
+[08:15:08 TRACE SMAPI] Fowl Play edited Data/Objects.
+[08:15:08 DEBUG Lunch Pail] [LunchPail] Data/Objects edit fired. Unlock item registered.
+[08:15:08 TRACE SMAPI] Lunch Pail edited Data/Objects.
+[08:15:08 TRACE SMAPI] Colored Honey Labels loaded asset 'Mods/voltaek.ColoredHoneyLabels/SpriteData'.
+[08:15:08 TRACE SMAPI] Colored Honey Labels edited Data/Objects.
+[08:15:08 TRACE SMAPI] NPC Marriageable Framework edited Data/Characters.
+[08:15:08 TRACE SMAPI] Buildable Ginger Island Farm edited Data/Buildings.
+[08:15:08 TRACE SMAPI] Buildable Ginger Island Farm edited Data/Buildings.
+[08:15:08 TRACE SMAPI] Buildable Ginger Island Farm edited Data/Buildings.
+[08:15:08 TRACE SMAPI] Instant Building Construction and Upgrade edited Data/Buildings.
+[08:15:08 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/Dungeons'.
+[08:15:08 TRACE SMAPI] Buildable Ginger Island Farm edited Data/Locations.
+[08:15:08 TRACE SMAPI] Buildable Ginger Island Farm edited Data/Locations.
+[08:15:08 DEBUG Lunch Pail] [LunchPail] Data/CraftingRecipes edit fired. Recipe: 771 50 334 1/Home/tbonehunter.LunchPail_Unlock/false/Mining 1
+[08:15:08 TRACE SMAPI] Lunch Pail edited Data/CraftingRecipes.
+[08:15:08 TRACE SMAPI] Auto Forager edited Data/CraftingRecipes.
+[08:15:08 TRACE SMAPI] Instant Tool Upgrades edited Strings/StringsFromCSFiles.
+[08:15:08 TRACE game] setGameMode( 'titleScreenGameMode (0)' )
+[08:15:08 TRACE SMAPI] Instant Tool Upgrades edited Strings/StringsFromCSFiles.
+[08:15:08 TRACE SMAPI]    SMAPI okay.
+[08:15:08 TRACE SMAPI]    Checking for updates to 89 mods...
+[08:15:08 TRACE SMAPI] Running on GPU: Quadro P2000/PCIe/SSE2
+[08:15:08 TRACE game] Instance_LoadContent() finished, elapsed = '00:00:10.0227599'
+[08:15:09 TRACE SMAPI] Got update-check errors for some mods:
+   Custom Health and Stamina Start: The CurseForge mod with ID '885084' has no valid versions.
+   Debug Mode: The CurseForge mod with ID '1000634' has no valid versions.
+   GoodFences: Found no GitHub repository for this ID.
+   Map Editor Extended: The CurseForge mod with ID '868847' has no valid versions.
+   MoveGreenhousePlot: The CurseForge mod with ID '868738' has no valid versions.
+[08:15:09 TRACE SMAPI]    All mods up to date.
+[08:15:09 TRACE SMAPI]    Mod blacklist OK.
+[08:15:09 INFO  SMAPI] Type 'help' for help, or 'help <cmd>' for a command's usage
+[08:15:09 TRACE Farm Type Manager (FTM)] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:09 TRACE Farm Type Manager (FTM)] Optional API found: Generic Mod Config Menu (GMCM).
+[08:15:09 TRACE Farm Type Manager (FTM)] Accessed mod-provided API (ExpandedPreconditionsUtility.Framework.ConditionsChecker) for Expanded Preconditions Utility.
+[08:15:09 TRACE Farm Type Manager (FTM)] API found: Expanded Preconditions Utility (EPU).
+[08:15:09 TRACE Farm Type Manager (FTM)] API not found: Dynamic Game Assets (DGA).
+[08:15:09 TRACE Farm Type Manager (FTM)] Accessed mod-provided API (ContentPatcher.Framework.ContentPatcherAPI) for Content Patcher.
+[08:15:09 TRACE Farm Type Manager (FTM)] API found: Content Patcher (CP).
+[08:15:09 TRACE Farm Type Manager (FTM)] Mod not found: Monsters The Framework (MTF).
+[08:15:09 TRACE Farm Type Manager (FTM)] Optional API not found: Item Extensions.
+[08:15:09 TRACE Farm Type Manager (FTM)] Accessed mod-provided API (QuickSave.API.QuickSaveAPI) for QuickSave.
+[08:15:09 TRACE Farm Type Manager (FTM)] QuickSave API loaded. Sending compatibility events.
+[08:15:10 INFO  CP Farm Registrar] Detected CP farm mod: Blackberry Fields Farm by DaisyNiko (replaces Standard farm via Maps/Farm)
+[08:15:10 TRACE CP Farm Registrar]   Skipping unresolvable target 'Mods/{{ModId}}/HoneyNoColor' in (CP) Better Honey Mead - could not resolve all tokens.
+[08:15:10 TRACE CP Farm Registrar]   Skipping unresolvable target 'Mods/{{ModId}}/HoneyColored' in (CP) Better Honey Mead - could not resolve all tokens.
+[08:15:10 TRACE CP Farm Registrar]   Skipping unresolvable target 'Mods/{{ModId}}/MeadNoColor' in (CP) Better Honey Mead - could not resolve all tokens.
+[08:15:10 TRACE CP Farm Registrar]   Skipping unresolvable target 'Mods/{{ModId}}/MeadColored' in (CP) Better Honey Mead - could not resolve all tokens.
+[08:15:10 INFO  CP Farm Registrar] Detected 1 CP farm map replacement(s).
+[08:15:10 TRACE CP Farm Registrar] Harmony postfix applied to PatchManager.GetCurrentLoaders.
+[08:15:10 TRACE CP Farm Registrar] Harmony postfix applied to PatchManager.GetCurrentEditors.
+[08:15:10 TRACE CP Farm Registrar] Harmony prefix/postfix applied to Game1.loadForNewGame.
+[08:15:10 INFO  CP Farm Registrar] CP Farm Registrar initialized. Registered 1 CP farm(s) as selectable types.
+[08:15:10 TRACE Always Show Bar Values] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE AutoAnimalDoors] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 DEBUG AutoAnimalDoors] Generic Mod Config detected, initializing menu
+[08:15:10 TRACE Confirm Gifts] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Event Indicators] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Debug Mode] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Esca's Modding Plugins (EMP)] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Esca's Modding Plugins (EMP)] Accessed mod-provided API (ContentPatcher.Framework.ContentPatcherAPI) for Content Patcher.
+[08:15:10 TRACE game] Registered trigger action handler 'Esca.EMP_LogMessage'.
+[08:15:10 TRACE game] Registered trigger type for Data/Triggers: Esca.EMP_GameLaunched.
+[08:15:10 TRACE game] Registered trigger type for Data/Triggers: Esca.EMP_ReturnedToTitle.
+[08:15:10 TRACE game] Registered trigger type for Data/Triggers: Esca.EMP_OneSecondUpdateTicked.
+[08:15:10 TRACE game] Registered trigger type for Data/Triggers: Esca.EMP_SaveLoaded.
+[08:15:10 TRACE game] Registered trigger type for Data/Triggers: Esca.EMP_TimeChanged.
+[08:15:10 TRACE Farm Cave Framework] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE SpaceCore] Accessed mod-provided API (SpaceCore.Api) for SpaceCore.
+[08:15:10 TRACE SpaceCore] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE SpaceCore] Accessed mod-provided API (ContentPatcher.Framework.ContentPatcherAPI) for Content Patcher.
+[08:15:10 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/TextureOverrides'.
+[08:15:10 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/CraftingRecipeOverrides'.
+[08:15:10 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/CookingRecipeOverrides'.
+[08:15:10 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/VirtualCurrencyData'.
+[08:15:10 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/WearableData'.
+[08:15:10 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/TriggerActionExtensionData'.
+[08:15:10 TRACE Json Assets] Accessed mod-provided API (ExpandedPreconditionsUtility.Framework.ConditionsChecker) for Expanded Preconditions Utility.
+[08:15:10 TRACE Json Assets] Accessed mod-provided API (ContentPatcher.Framework.ContentPatcherAPI) for Content Patcher.
+[08:15:10 TRACE Json Assets] Accessed mod-provided API (JsonAssets.Api) for Json Assets.
+[08:15:10 TRACE Mail Framework Mod] Accessed mod-provided API (ExpandedPreconditionsUtility.Framework.ConditionsChecker) for Expanded Preconditions Utility.
+[08:15:10 TRACE Mail Framework Mod] Requested cache invalidation for 'DIGUS.MailFrameworkMod/MailData'.
+[08:15:10 TRACE SMAPI] Invalidated 0 cache entries.
+[08:15:10 TRACE SV Data Extractor] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE UI Info Suite 2] Registered Sound: Annosz.UiInfoSuite2.sounds.LevelUp
+[08:15:10 TRACE UI Info Suite 2] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 INFO  UI Info Suite 2] Loaded API for mod spacechase0.GenericModConfigMenu
+[08:15:10 TRACE LadderLocator] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Lunch Pail] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Mail Services Mod] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Map Editor Extended] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE No Collision Mod] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 INFO  No Collision Mod] Setting up Generic Mod Config Menu integration.
+[08:15:10 INFO  No Collision Mod] Generic Mod Config Menu setup completed.
+[08:15:10 TRACE NoSoilDecayOnFarm] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Passable Crops] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE QuickSave] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE QuickSave] Grabbing method references for SpaceCore Skills->OnSaving & VanillaAssetExpansion->GameLoop_Saving
+[08:15:10 TRACE Self Checkout] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE SMAPI] Self Checkout edited Data/Shops.
+[08:15:10 TRACE Start With Bigger Backpack] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE TimeSpeed] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Tool Smart Switch] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Ultimate Fertilizer] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Where's My Items?] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE GoodFences] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Set Skill Levels] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Auto Forager] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Auto-Grab Truffles] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Better Pigs] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Better Truffles] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Better Truffles] Accessed mod-provided API (BetterPigs.API) for Better Pigs.
+[08:15:10 TRACE Bigger Fridges] Applying Harmony Patches...
+[08:15:10 TRACE Bigger Fridges] Patch Log:
+- virtual System.Int32 StardewValley.Objects.Chest::GetActualCapacity()
+- virtual System.Void StardewValley.Objects.Chest::ShowMenu()
+[08:15:10 TRACE Buildable Ginger Island Farm] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Cheaters Anonymous] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Chests Anywhere] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE CJB Item Spawner] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE CJB Show Item Sell Price] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE CombineManyRings] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Crab Pot Collect Jellies] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Customize Trinkets] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE SMAPI] Custom Spouse Rooms loaded asset 'aedenthorn.CustomSpouseRooms/dict'.
+[08:15:10 TRACE Destroyable Bushes] Applying Harmony patch "HarmonyPatch_BushesAreDestroyable": transpiling SDV method "Bush.performToolAction(Tool, int, Vector2)".
+[08:15:10 TRACE Destroyable Bushes] Applying Harmony patch "HarmonyPatch_BushesAreDestroyable": postfixing SDV method "Bush.isDestroyable()".
+[08:15:10 TRACE Destroyable Bushes] Applying Harmony patch "HarmonyPatch_DestroyedBushBehavior": postfixing SDV method "Bush.performToolAction(Tool, int, Vector2)".
+[08:15:10 TRACE Expanded Starter Package] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 DEBUG Expanded Starter Package] GMCM integration registered.
+[08:15:10 TRACE Immersive Sprinklers and Scarecrows] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Instant Building Construction and Upgrade] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 DEBUG NPC Marriageable Framework] Loaded 11 built-in template(s).
+[08:15:10 DEBUG NPC Marriageable Framework] EventTemplateRegistry: 11 template(s) loaded.
+[08:15:10 TRACE NPC Marriageable Framework] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE QuickSave Automated] Accessed mod-provided API (QuickSave.API.QuickSaveAPI) for QuickSave.
+[08:15:10 TRACE QuickSave Automated] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE ReRegeneration] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE What Do You Want] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE Data Layers] Accessed mod-provided API (Pathoschild.Stardew.Automate.Framework.AutomateAPI) for Automate.
+[08:15:10 TRACE Data Layers] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:10 TRACE NPC Map Locations] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:14 TRACE Content Patcher] Esca's Modding Plugins (EMP) added 4 custom tokens with prefix 'Esca.EMP/': GameStateQuery, ModData, ModDataKeys, PlayerStat.
+[08:15:14 TRACE Content Patcher] Farm Type Manager (FTM) added a custom token with prefix 'Esca.FarmTypeManager/': NumberOfMonsters.
+[08:15:14 TRACE Content Patcher] Json Assets added 36 custom tokens with prefix 'spacechase0.JsonAssets/': BigCraftableId, BigCraftableSpriteTilesheet, BigCraftableSpriteX, BigCraftableSpriteY, BootsId, BootsSpriteTilesheet, BootsSpriteX, BootsSpriteY, CropId, CropSpriteTilesheet, CropSpriteX, CropSpriteY, FruitTreeId, FruitTreeSpriteTilesheet, FruitTreeSpriteX, FruitTreeSpriteY, HatId, HatSpriteTilesheet, HatSpriteX, HatSpriteY, ObjectId, ObjectSpriteTilesheet, ObjectSpriteX, ObjectSpriteY, PantsId, PantsSpriteTilesheet, PantsSpriteX, PantsSpriteY, ShirtsId, ShirtsSpriteTilesheet, ShirtsSpriteX, ShirtsSpriteY, WeaponId, WeaponSpriteTilesheet, WeaponSpriteX, WeaponSpriteY.
+[08:15:14 TRACE Content Patcher] SpaceCore added 4 custom tokens with prefix 'spacechase0.SpaceCore/': BooksellerInTown, CurrentEventId, CurrentlyInEvent, QuestionsAsked.
+[08:15:14 INFO  Content Patcher] Some content packs haven't been updated for Stardew Valley 1.6.0. Content Patcher will try to auto-migrate them, but compatibility isn't guaranteed.
+
+Affected content packs:
+- Birthday Reminder Mail
+- Cleaner Farm Buildings
+
+For mod authors, see how to update a mod: https://smapi.io/cp-migrate.
+[08:15:14 TRACE game] Registered trigger action handler 'Pathoschild.ContentPatcher_MigrateIds'.
+[08:15:14 TRACE Content Patcher] Requested cache invalidation for all assets matching a predicate.
+[08:15:14 TRACE Fowl Play] Fowl Play: Injected Coop Placement Stake into Data/Objects.
+[08:15:14 TRACE SMAPI] Fowl Play edited Data/Objects.
+[08:15:14 DEBUG Lunch Pail] [LunchPail] Data/Objects edit fired. Unlock item registered.
+[08:15:14 TRACE SMAPI] Lunch Pail edited Data/Objects.
+[08:15:14 TRACE SMAPI] Content Patcher edited Data/Objects (for the '(CP) Better Honey Mead' content pack).
+[08:15:14 TRACE SMAPI] Colored Honey Labels edited Data/Objects.
+[08:15:14 TRACE SMAPI] NPC Marriageable Framework edited Data/Characters.
+[08:15:14 TRACE SMAPI] Content Patcher edited Data/Characters (for the 'Jealousy Responses Begone' content pack).
+[08:15:14 TRACE SMAPI] Content Patcher edited Data/Characters (for the 'Preexisting Relationship - All Spouses' content pack).
+[08:15:14 TRACE SMAPI] Content Patcher edited Data/NPCGiftTastes (for the 'Robin Is Marriageable' content pack).
+[08:15:14 TRACE game] Successfully loaded ContentHashes.json containing 3560 file(s);
+[08:15:14 TRACE game] EnsureManifestInitialized() finished, elapsed = '00:00:00.0116712'
+[08:15:14 TRACE SMAPI] Content Patcher edited LooseSprites/font_bold (for the 'DaisyNiko's Tilesheets' content pack).
+[08:15:14 TRACE SMAPI] Invalidated 4 asset names (Data/Characters, Data/NPCGiftTastes, Data/Objects, LooseSprites/font_bold).
+Propagated 4 core assets (Data/Characters, Data/NPCGiftTastes, Data/Objects, LooseSprites/font_bold).
+[08:15:14 TRACE Content Patcher] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:14 TRACE Generic Mod Config Menu] Pathoschild.ContentPatcher is registering on behalf of DaisyNiko.Tilesheets
+[08:15:14 TRACE Generic Mod Config Menu] Pathoschild.ContentPatcher is registering on behalf of DaisyNiko.BlackberryFieldsFarm
+[08:15:14 TRACE Generic Mod Config Menu] Pathoschild.ContentPatcher is registering on behalf of Oakstar519.CleanerFarmBuildings
+[08:15:14 TRACE Generic Mod Config Menu] Pathoschild.ContentPatcher is registering on behalf of NCarigon.BetterHoneyMeadCP
+[08:15:14 TRACE Generic Mod Config Menu] Pathoschild.ContentPatcher is registering on behalf of agentlyoko.nomorejealousy
+[08:15:14 INFO  Json Assets] Loading content packs...
+[08:15:14 TRACE Json Assets] Requested cache invalidation for all assets matching a predicate.
+[08:15:14 TRACE SMAPI] Auto Forager edited Data/BigCraftables.
+[08:15:14 TRACE SMAPI] Automate edited Data/BigCraftables.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/BigCraftables.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/Crops.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/Pants.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/Shirts.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/Weapons.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/FruitTrees.
+[08:15:14 TRACE Fowl Play] Fowl Play: Injected Coop Placement Stake into Data/Objects.
+[08:15:14 TRACE SMAPI] Fowl Play edited Data/Objects.
+[08:15:14 DEBUG Lunch Pail] [LunchPail] Data/Objects edit fired. Unlock item registered.
+[08:15:14 TRACE SMAPI] Lunch Pail edited Data/Objects.
+[08:15:14 TRACE SMAPI] Content Patcher edited Data/Objects (for the '(CP) Better Honey Mead' content pack).
+[08:15:14 TRACE SMAPI] Json Assets edited Data/Objects.
+[08:15:14 TRACE SMAPI] Colored Honey Labels edited Data/Objects.
+[08:15:14 DEBUG Lunch Pail] [LunchPail] Data/CraftingRecipes edit fired. Recipe: 771 50 334 1/Home/tbonehunter.LunchPail_Unlock/false/Mining 1
+[08:15:14 TRACE SMAPI] Lunch Pail edited Data/CraftingRecipes.
+[08:15:14 TRACE SMAPI] Auto Forager edited Data/CraftingRecipes.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/CraftingRecipes.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/CookingRecipes.
+[08:15:14 TRACE SMAPI] Invalidated 11 asset names (Data/BigCraftables, Data/Boots, Data/CookingRecipes, Data/CraftingRecipes, Data/Crops, Data/FruitTrees, Data/hats, Data/Objects, Data/Pants, Data/Shirts, Data/Weapons).
+Propagated 11 core assets (Data/BigCraftables, Data/Boots, Data/CookingRecipes, Data/CraftingRecipes, Data/Crops, Data/FruitTrees, Data/hats, Data/Objects, Data/Pants, Data/Shirts, Data/Weapons).
+[08:15:14 TRACE Json Assets] Event: ItemsRegistered
+[08:15:14 TRACE Colored Honey Labels] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:14 TRACE SMAPI] Generic Mod Config Menu loaded asset 'Mods/GenericModConfigMenu/ConfigButton'.
+[08:15:14 TRACE Automate] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/Boots.
+[08:15:14 TRACE SMAPI] Json Assets edited Data/hats.
+[08:15:14 TRACE SMAPI] Content Patcher edited Strings/Objects (for the '(CP) Better Honey Mead' content pack).
+[08:15:14 TRACE SMAPI] Customize Trinkets edited Data/Machines.
+[08:15:14 TRACE SMAPI] Content Patcher edited Data/Machines (for the '(CP) Better Honey Mead' content pack).
+[08:15:14 TRACE SMAPI] Auto Forager loaded asset 'Strings/tbonehunter.AutoForager'.
+[08:15:14 TRACE game] Window_ClientSizeChanged(); Window.ClientBounds={X:320 Y:180 Width:1280 Height:720}
+[08:15:14 TRACE Destroyable Bushes] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:15:24 ERROR game] Galaxy auth failure: FAILURE_REASON_GALAXY_SERVICE_NOT_AVAILABLE
+[08:15:50 TRACE SMAPI] Synchronizing 'Find Save Games' task...
+[08:15:50 TRACE SpaceCore] Reinitializing serializers for 1 mod types...
+[08:15:55 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/NpcExtensionData'.
+[08:15:55 TRACE SMAPI]    task complete.
+[08:15:55 TRACE SMAPI] CP Farm Registrar edited Strings/UI.
+[08:15:55 TRACE game] Window_ClientSizeChanged(); Window.ClientBounds={X:320 Y:180 Width:1280 Height:720}
+[08:15:59 TRACE game] gameMode was 'titleScreenGameMode (0)', set to 'loadingMode (6)'.
+[08:15:59 TRACE SMAPI] Game loader synchronizing...
+[08:15:59 TRACE game] getLoadEnumerator('Blackberry_436277498')
+[08:15:59 TRACE SMAPI] Synchronizing 'Load_ReadSave' task...
+[08:16:00 TRACE SMAPI] Permanent Cellar edited Maps/FarmHouse.
+[08:16:00 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/FurnitureExtensionData'.
+[08:16:01 TRACE SMAPI]    task complete.
+[08:16:01 TRACE Json Assets] Event: IdsAssigned
+[08:16:01 TRACE Content Patcher] Requested cache invalidation for all assets matching a predicate.
+[08:16:01 TRACE SMAPI] Invalidated 0 cache entries.
+[08:16:01 INFO  CP Farm Registrar] Registered 'Blackberry Fields Farm' as selectable farm type (ID: CPFarmRegistrar/DaisyNiko.BlackberryFieldsFarm).
+[08:16:01 TRACE SMAPI] CP Farm Registrar edited Data/AdditionalFarms.
+[08:16:01 TRACE SMAPI] Synchronizing 'Load_LoadForNewGame' task...
+[08:16:01 TRACE Json Assets] Loading stuff early (really super early)
+[08:16:01 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/ObjectExtensionData'.
+[08:16:01 TRACE SMAPI] Json Assets edited spacechase0.SpaceCore/ObjectExtensionData.
+[08:16:01 TRACE CP Farm Registrar] Suppressing Load patch from 'Blackberry Fields Farm' for Maps/Farm (not selected).
+[08:16:01 TRACE CP Farm Registrar] Suppressing Edit patch from 'Blackberry Fields Farm' for Maps/Farm (not selected).
+[08:16:01 TRACE SMAPI] Permanent Cellar edited Maps/FarmHouse.
+[08:16:01 TRACE SMAPI] Content Patcher loaded asset 'Maps/cave_daisyextras' (for the 'DaisyNiko's Tilesheets' content pack).
+[08:16:01 TRACE SMAPI] Content Patcher loaded asset 'Maps/FarmCave' (for the 'Blackberry Fields Farm' content pack).
+[08:16:01 TRACE SMAPI] Content Patcher loaded asset 'Maps/cave_daisyextras' (for the 'DaisyNiko's Tilesheets' content pack).
+[08:16:02 TRACE SMAPI] Content Patcher loaded asset 'Maps/Cellar' (for the 'Cleaner Farm Buildings' content pack).
+[08:16:02 TRACE SMAPI] Buildable Ginger Island Farm edited Maps/island_tilesheet_1.
+[08:16:02 TRACE SMAPI] Buildable Ginger Island Farm edited Maps/Island_W.
+[08:16:02 TRACE SMAPI] SpaceCore loaded asset 'spacechase0.SpaceCore/FarmExtensionData'.
+[08:16:02 TRACE SpaceCore]    at ExperimentalLagReduction.HarmonyPatches.Rescheduler.PrefixPopulateRoutes()
+   at StardewValley.Pathfinding.WarpPathfindingCache.PopulateCache_PatchedBy<spacechase0.SpaceCore>()
+   at StardewValley.Game1.loadForNewGame_PatchedBy<spacechase0.JsonAssets__spacechase0.SpaceCore__tbonehunter.CPFarmRegistrar>(Game1 this, Boolean loadedGame)
+   at StardewModdingAPI.Framework.SGame.loadForNewGame(Boolean loadedGame)
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+   at System.Threading.Tasks.Task.ExecuteEntryUnsafe(Thread threadPoolThread)
+   at System.Threading.Tasks.ThreadPoolTaskScheduler.TryExecuteTaskInline(Task task, Boolean taskWasPreviouslyQueued)
+   at System.Threading.Tasks.TaskScheduler.TryRunInline(Task task, Boolean taskWasPreviouslyQueued)
+   at System.Threading.Tasks.Task.InternalRunSynchronously(TaskScheduler scheduler, Boolean waitForCompletion)
+   at StardewModdingAPI.Framework.SModHooks.StartTask(Task task, String id)
+   at StardewValley.SaveGame+<getLoadEnumerator>d__101.MoveNext_PatchedBy<spacechase0.SpaceCore>(<getLoadEnumerator>d__101 this)
+   at StardewValley.Game1.UpdateTitleScreenDuringLoadingMode()
+   at StardewModdingAPI.Framework.SCore.OnPlayerInstanceUpdating(SGame instance, GameTime gameTime, Action runUpdate)
+   at StardewModdingAPI.Framework.SGame.Update(GameTime gameTime)
+   at StardewValley.GameRunner.Update(GameTime gameTime)
+   at StardewModdingAPI.Framework.SCore.OnGameUpdating(GameTime gameTime, Action runGameUpdate)
+   at Microsoft.Xna.Framework.Game.DoUpdate(GameTime gameTime)
+   at Microsoft.Xna.Framework.Game.Tick()
+   at Microsoft.Xna.Framework.SdlGamePlatform.RunLoop()
+   at Microsoft.Xna.Framework.Game.Run(GameRunBehavior runBehavior)
+   at StardewModdingAPI.Framework.SCore.RunInteractively()
+   at StardewModdingAPI.Program.Start(String[] args)
+   at StardewModdingAPI.Program.Main(String[] args)
+
+[08:16:02 TRACE SpaceCore] Event: OnBlankSave
+[08:16:02 TRACE SMAPI]    task complete.
+[08:16:02 TRACE SMAPI] Synchronizing 'Load_Farmer' task...
+[08:16:02 TRACE SMAPI]    task complete.
+[08:16:02 TRACE SMAPI] Synchronizing 'Load_Locations' task...
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: JoshHouse -> Town
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> JoshHouse
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: JoshHouse -> Town
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> JoshHouse
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: HaleyHouse -> Forest
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: SamHouse -> Town
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> SamHouse
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Saloon -> Blacksmith
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Backtrack inserting path from Beach to FishShop
+[08:16:02 TRACE SpaceCore] Backtrack inserting path from Town to FishShop
+[08:16:02 TRACE SpaceCore] Backtrack inserting path from Beach to ManorHouse
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> SeedShop
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: SeedShop -> Sunroom
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: SeedShop -> Town
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> SeedShop
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Saloon -> SeedShop
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: JojaMart -> Saloon
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Saloon -> Trailer
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Trailer -> Town
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> Trailer
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Trailer -> Town
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> Trailer
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> Hospital
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Hospital -> HarveyRoom
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Town -> ScienceHouse
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: ScienceHouse -> Mountain
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Mountain -> ScienceHouse
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: ScienceHouse -> SebastianRoom
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Mountain -> Tent
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Forest -> AnimalShop
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: AnimalShop -> JojaMart
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: JojaMart -> Saloon
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Reached map Woods which has been excluded from the macropathfinder.
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: FishShop -> Beach
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Beach -> FishShop
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: FishShop -> Beach
+[08:16:02 TRACE SpaceCore] Got macro schedule from cache: Beach -> FishShop
+[08:16:02 TRACE SMAPI]    task complete.
+[08:16:02 TRACE Json Assets] Fixing IDs
+[08:16:02 TRACE game] gameMode was 'loadingMode (6)', set to 'playingGameMode (3)'.
+[08:16:03 TRACE game] getLoadEnumerator() exited, elapsed = '00:00:03.5328303'
+[08:16:03 TRACE game] setGameMode( 'playingGameMode (3)' )
+[08:16:03 TRACE SMAPI] Game loader done.
+[08:16:03 TRACE Json Assets] Adding default recipes
+[08:16:03 TRACE game] Window_ClientSizeChanged(); Window.ClientBounds={X:320 Y:180 Width:1280 Height:720}
+[08:16:03 TRACE SMAPI] Context: loaded save 'Blackberry_436277498', starting spring 1 Y1, locale set to . Single-player.
+[08:16:03 TRACE Mail Framework Mod] Asset DIGUS.MailFrameworkMod/MailData requested.
+[08:16:03 TRACE SMAPI] Mail Framework Mod loaded asset 'DIGUS.MailFrameworkMod/MailData'.
+[08:16:03 TRACE Mail Framework Mod] Asset DIGUS.MailFrameworkMod/MailData ready.
+[08:16:03 INFO  SV Data Extractor] SV Data Extractor v{0} loaded. Categories enabled: {1}. Use GMCM to configure toggles and hotkeys.
+[08:16:03 INFO  UI Info Suite 2] Setting up icon sheet
+[08:16:03 DEBUG Lunch Pail] [LunchPail] Save data loaded. HasLunchPail=False
+[08:16:03 TRACE Map Editor Extended] Loading map data from file data\Blackberry_436277498_map_data.json
+[08:16:03 TRACE Map Editor Extended] Loaded map data for 0 maps
+[08:16:03 TRACE SMAPI] Permanent Cellar edited Maps/FarmHouse.
+[08:16:03 INFO  Start With Bigger Backpack] Applied starting backpack size: 36 slots.
+[08:16:03 INFO  GoodFences] Single-player game detected. GoodFences tagging is active but enforcement is disabled.
+[08:16:03 INFO  Auto Forager] Auto Forager v{0} loaded. Machines collect forage overnight.
+[08:16:03 TRACE Colored Honey Labels] Honey objects prepared for use: [0 Existing Colored] [0 Newly Colored] [0 Non-Colored]
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Bone Mill (Bone Mill)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Cask (Cask)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Charcoal Kiln (Charcoal Kiln)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Loom (Loom)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Furnace (Furnace)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Deconstructor (Deconstructor)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Keg (Keg)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Preserves Jar (Preserves Jar)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Cheese Press (Cheese Press)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Recycling Machine (Recycling Machine)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Mayonnaise Machine (Mayonnaise Machine)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Oil Maker (Oil Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Incubator (Incubator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Ostrich Incubator (Ostrich Incubator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Slime Incubator (Slime Incubator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Slime Egg-Press (Slime Egg-Press)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Crystalarium (Crystalarium)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Seed Maker (Seed Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Geode Crusher (Geode Crusher)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Wood Chipper (Wood Chipper)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Bee House (Bee House)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Worm Bin (Worm Bin)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Soda Machine (Soda Machine)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Coffee Maker (Coffee Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Solar Panel (Solar Panel)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Lightning Rod (Lightning Rod)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Tapper (Tapper)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Heavy Tapper (Heavy Tapper)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Statue Of True Perfection (Statue Of True Perfection)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Statue Of Endless Fortune (Statue Of Endless Fortune)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Statue Of Perfection (Statue Of Perfection)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Mushroom Box (Mushroom Box)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Mushroom Log (Mushroom Log)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Bait Maker (Bait Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Dehydrator (Dehydrator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Heavy Furnace (Heavy Furnace)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Anvil (Anvil)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Fish Smoker (Fish Smoker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Deluxe Worm Bin (Deluxe Worm Bin)
+[08:16:03 DEBUG Configure Machine Speed] Machine detection complete. Found 39 machines.
+[08:16:03 TRACE Configure Machine Speed] Accessed mod-provided API (GenericModConfigMenu.Framework.Api) for Generic Mod Config Menu.
+[08:16:03 DEBUG Configure Machine Speed] GMCM menu built with 39 machines.
+[08:16:03 DEBUG Custom Health and Stamina Start] Setting Maximum HP to 145!
+[08:16:03 DEBUG Custom Health and Stamina Start] Setting Maximum Stamina to 320!
+[08:16:03 TRACE SMAPI] NPC Marriageable Framework loaded asset 'tbonehunter.NPCMarriageable/NPCConfigs'.
+[08:16:03 TRACE SMAPI] Content Patcher edited tbonehunter.NPCMarriageable/NPCConfigs (for the 'Robin Is Marriageable' content pack).
+[08:16:03 TRACE NPC Marriageable Framework] Requested cache invalidation for 'Data/Characters'.
+[08:16:03 TRACE SMAPI] NPC Marriageable Framework edited Data/Characters.
+[08:16:03 TRACE SMAPI] Content Patcher edited Data/Characters (for the 'Jealousy Responses Begone' content pack).
+[08:16:03 TRACE SMAPI] Content Patcher edited Data/Characters (for the 'Preexisting Relationship - All Spouses' content pack).
+[08:16:03 TRACE SMAPI] Invalidated 1 asset names (Data/Characters).
+Propagated 1 core assets (Data/Characters).
+[08:16:03 TRACE NPC Marriageable Framework] Requested cache invalidation for 'Characters/Dialogue/MarriageDialogueRobin'.
+[08:16:03 TRACE SMAPI] Invalidated 0 cache entries.
+[08:16:03 TRACE NPC Marriageable Framework] Requested cache invalidation for 'Data/Schedules/Robin'.
+[08:16:03 TRACE SMAPI] Invalidated 0 cache entries.
+[08:16:03 TRACE SMAPI] Permanent Cellar loaded asset 'Maps/FarmHouse_Cellar0'.
+[08:16:03 TRACE SMAPI] Permanent Cellar loaded asset 'Maps/FarmHouse_Cellar1'.
+[08:16:03 TRACE Permanent Cellar] Requested cache invalidation for 'Maps/FarmHouse'.
+[08:16:03 TRACE SMAPI] Permanent Cellar edited Maps/FarmHouse.
+[08:16:03 TRACE SMAPI] Invalidated 1 asset names (Maps/FarmHouse).
+Propagated 1 core assets (Maps/FarmHouse).
+[08:16:03 TRACE Permanent Cellar] Requested cache invalidation for 'Maps/FarmHouse1'.
+[08:16:03 TRACE SMAPI] Invalidated 0 cache entries.
+[08:16:03 TRACE Permanent Cellar] Requested cache invalidation for 'Maps/FarmHouse1_marriage'.
+[08:16:03 TRACE SMAPI] Invalidated 0 cache entries.
+[08:16:03 TRACE SMAPI] NPC Map Locations loaded asset 'Mods/Bouhm.NPCMapLocations/NPCs'.
+[08:16:03 TRACE SMAPI] NPC Map Locations loaded asset 'Mods/Bouhm.NPCMapLocations/Locations'.
+[08:16:03 TRACE Fowl Play] Fowl Play: Found chest at (3, 7) in FarmHouse.
+[08:16:03 INFO  Fowl Play] Fowl Play: Coop Placement Stake added to starter chest.
+[08:16:03 TRACE Mail Framework Mod] Requested cache invalidation for 'Data/mail'.
+[08:16:03 TRACE SMAPI] Invalidated 0 cache entries.
+[08:16:03 DEBUG Mail Framework Mod] Updating mailbox for the day.
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Bone Mill (Bone Mill)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Cask (Cask)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Charcoal Kiln (Charcoal Kiln)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Loom (Loom)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Furnace (Furnace)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Deconstructor (Deconstructor)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Keg (Keg)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Preserves Jar (Preserves Jar)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Cheese Press (Cheese Press)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Recycling Machine (Recycling Machine)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Mayonnaise Machine (Mayonnaise Machine)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Oil Maker (Oil Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Incubator (Incubator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Ostrich Incubator (Ostrich Incubator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Slime Incubator (Slime Incubator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Slime Egg-Press (Slime Egg-Press)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Crystalarium (Crystalarium)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Seed Maker (Seed Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Geode Crusher (Geode Crusher)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Wood Chipper (Wood Chipper)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Bee House (Bee House)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Worm Bin (Worm Bin)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Soda Machine (Soda Machine)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Coffee Maker (Coffee Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Solar Panel (Solar Panel)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Lightning Rod (Lightning Rod)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Tapper (Tapper)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Heavy Tapper (Heavy Tapper)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Statue Of True Perfection (Statue Of True Perfection)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Statue Of Endless Fortune (Statue Of Endless Fortune)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Statue Of Perfection (Statue Of Perfection)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Mushroom Box (Mushroom Box)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Mushroom Log (Mushroom Log)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Bait Maker (Bait Maker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Dehydrator (Dehydrator)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Heavy Furnace (Heavy Furnace)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Anvil (Anvil)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Fish Smoker (Fish Smoker)
+[08:16:03 TRACE Configure Machine Speed] Detected machine: Deluxe Worm Bin (Deluxe Worm Bin)
+[08:16:03 DEBUG Configure Machine Speed] Machine detection complete. Found 39 machines.
+[08:16:03 DEBUG Configure Machine Speed] GMCM menu built with 39 machines.
+[08:16:03 TRACE Configure Machine Speed] Day started. 39 machines available.
+[08:16:03 INFO  Expanded Starter Package] Flagged starter chest at {X:3 Y:7} for custom item injection (27 items pending, Mode: Merge).
+[08:16:03 TRACE Farm Type Manager (FTM)] Loading content packs and local data files.
+[08:16:03 TRACE Farm Type Manager (FTM)] Checking for saved objects that need to be respawned overnight or after loading.
+[08:16:03 TRACE Farm Type Manager (FTM)] Generating forage for content pack: Blackberry Fields Farm Spawns
+[08:16:03 TRACE Farm Type Manager (FTM)] Generating large objects for content pack: Blackberry Fields Farm Spawns
+[08:16:03 TRACE Farm Type Manager (FTM)] Generating ore for content pack: Blackberry Fields Farm Spawns
+[08:16:03 TRACE SMAPI] Json Assets edited Data/GiantCrops.
+[08:16:03 TRACE Farm Type Manager (FTM)] Spawned 5 objects. Time: 600.
+[08:16:03 TRACE NPC Map Locations] Unknown locations: LewisBasement
+[08:16:03 TRACE SMAPI] Permanent Cellar loaded asset 'Maps/FarmHouse_Cellar0'.
+[08:16:27 TRACE SpaceCore] Event: BeforeWarp
+[08:16:27 TRACE game] Warping to Farm
+[08:16:28 TRACE Farm Cave Framework] Loading choice list
+[08:16:28 TRACE SMAPI] Farm Cave Framework loaded asset 'farm_cave_choices'.
+[08:16:28 TRACE SMAPI] Content Patcher edited farm_cave_choices (for the '(CP) FCF Bats and Shrooms' content pack).
+[08:16:28 TRACE SMAPI] Farm Cave Framework edited Data/Events/Farm.
+[08:16:28 TRACE SMAPI] Content Patcher edited Data/Events/Farm (for the 'Robin Is Marriageable' content pack).
+[08:16:31 TRACE SpaceCore] Event: BeforeWarp
+[08:16:31 TRACE game] Warping to BusStop
+[08:16:31 TRACE SMAPI] Content Patcher edited Data/Events/Town (for the 'Robin Is Marriageable' content pack).
+[08:16:32 TRACE SpaceCore] Event: BeforeWarp
+[08:16:32 TRACE game] Warping to Farm
+[08:16:40 DEBUG AutoAnimalDoors] Changing state of 0 animal doors to OPEN
+[08:17:13 TRACE SMAPI] Content Patcher loaded asset 'Mods/NCarigon.BetterHoneyMeadCP/MeadColored' (for the '(CP) Better Honey Mead' content pack).
+[08:17:13 TRACE SMAPI] Colored Honey Labels loaded asset 'Mods/voltaek.ColoredHoneyLabels/DefaultHoneyFullLabelWithLid'.
+[08:17:13 TRACE SMAPI] Mail Framework Mod edited Data/mail.
+[08:17:13 TRACE SMAPI] Content Patcher edited Data/mail (for the 'Birthday Reminder Mail' content pack).
+[08:17:13 TRACE SMAPI] Content Patcher edited Data/mail (for the 'Robin Is Marriageable' content pack).
+[08:17:13 TRACE game] Window_ClientSizeChanged(); Window.ClientBounds={X:320 Y:180 Width:1280 Height:720}

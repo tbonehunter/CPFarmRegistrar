@@ -54,6 +54,43 @@ On game launch, the mod:
 5. Applies Harmony postfixes to Content Patcher's internal `PatchManager.GetCurrentLoaders` and `PatchManager.GetCurrentEditors` methods. These postfixes filter CP's patch lists at the source: only the selected CP farm's Load and Edit patches are allowed through. All others are suppressed before they reach SMAPI's asset pipeline, preventing conflicts between competing farm mods.
 6. Applies a Harmony prefix/postfix to `Game1.loadForNewGame`. When a registered CP farm is selected and the mod doesn't provide its own farmhouse edits, the prefix temporarily sets `Game1.whichFarm` to the vanilla farm integer so the game's built-in furniture and starter item placement runs correctly. The postfix restores it afterward.
 
+## Rescuing Pre-CPFR Saves
+
+### The Problem
+
+If you played with a CP farm mod (e.g., Blackberry Fields Farm) **before** installing CP Farm Registrar, your save file stores a vanilla farm type integer (e.g., `0` for Standard). When CPFR loads, it sees that vanilla type and suppresses the CP farm mod's patches — so the game loads the vanilla map instead of the modded one you were actually playing on.
+
+### The Solution
+
+CPFR provides two ways to pre-select a CP farm mod **before** loading a pre-CPFR save. Once applied and saved, the change is permanent for that save and the pre-selection resets automatically.
+
+#### Option 1: Generic Mod Config Menu (GMCM)
+
+If you have [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) installed:
+
+1. From the title screen, open **Mod Config Menu**.
+2. Find **CP Farm Registrar**.
+3. In the **Pre-Select CP Farm** dropdown, choose the CP farm mod you want to use (e.g., "Blackberry Fields Farm (replaces Standard)").
+4. Click **Save**.
+5. Load your pre-CPFR save — the CP farm map will load instead of the vanilla one.
+6. **Save the game** to make the change permanent. The config resets to "None" automatically so it won't affect other saves.
+
+#### Option 2: Console Command
+
+If you don't have GMCM, use the SMAPI console:
+
+1. At the title screen, CPFR logs a numbered list of detected CP farm mods.
+2. Type `cpfr_select <number>` in the SMAPI console (e.g., `cpfr_select 1`).
+3. Load your pre-CPFR save — the CP farm map will load instead of the vanilla one.
+4. **Save the game** to make the change permanent.
+
+#### Console Rescue Command
+
+For additional control, the `cpfr_rescue` console command is available while a save is loaded:
+
+- `cpfr_rescue` — Lists all detected CP farm mods and their IDs.
+- `cpfr_rescue <mod_id>` — Patches the currently loaded save to use the specified CP farm (e.g., `cpfr_rescue DaisyNiko.BlackberryFieldsFarm`). Save afterward to persist.
+
 ## Source
 
 Source code is available on [GitHub](https://github.com/tbonehunter/CPFarmRegistrar).
@@ -66,3 +103,5 @@ MIT
 
 - **tbonehunter** — Author
 - Thanks to [DeLiXxN](https://www.nexusmods.com/stardewvalley/users/39574502) for [Custom Farm Loader](https://www.nexusmods.com/stardewvalley/mods/13804), whose approach to farm type registration via `Data/AdditionalFarms` helped clarify how the game's farm selection system works.
+
+

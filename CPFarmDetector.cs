@@ -13,6 +13,7 @@ namespace CPFarmRegistrar
     /// silently replace vanilla farm maps via Load actions.
     /// Skips mods that already self-register in Data/AdditionalFarms.
     /// Resolves simple dynamic tokens to catch config-driven farm mods.
+    /// Handles comma-separated CP targets (e.g., "Maps/Farm,Maps").
     /// Also detects whether each mod edits Maps/FarmHouse.
     /// </summary>
     public class CPFarmDetector
@@ -113,6 +114,7 @@ namespace CPFarmRegistrar
         /// Reads a CP content pack's content.json and looks for Load actions
         /// targeting vanilla farm maps. Skips mods that already register
         /// themselves in Data/AdditionalFarms. Resolves simple dynamic tokens.
+        /// Splits comma-separated targets to handle multi-target patches.
         /// Also checks whether the mod edits Maps/FarmHouse.
         /// </summary>
         private ScanResult ScanContentPack(IModInfo mod)
@@ -148,15 +150,22 @@ namespace CPFarmRegistrar
                     if (action.Equals("EditData", StringComparison.OrdinalIgnoreCase))
                     {
                         string editTarget = change["Target"]?.ToString();
-                        if (editTarget != null && editTarget.Equals(
-                            "Data/AdditionalFarms",
-                            StringComparison.OrdinalIgnoreCase))
+                        if (editTarget != null)
                         {
-                            Monitor.Log(
-                                $"  {mod.Manifest.Name} self-registers in " +
-                                $"Data/AdditionalFarms. Skipping.",
-                                LogLevel.Trace);
-                            return result;
+                            // Check each part of a comma-separated target
+                            foreach (string part in SplitTargets(editTarget))
+                            {
+                                if (part.Equals(
+                                    "Data/AdditionalFarms",
+                                    StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Monitor.Log(
+                                        $"  {mod.Manifest.Name} self-registers in " +
+                                        $"Data/AdditionalFarms. Skipping.",
+                                        LogLevel.Trace);
+                                    return result;
+                                }
+                            }
                         }
                     }
                 }
@@ -180,48 +189,55 @@ namespace CPFarmRegistrar
                     // Resolve tokens in the target
                     string resolved = ResolveTokens(target, tokenDefaults);
 
-                    // Check for FarmHouse edits (Load or EditMap)
-                    if (action.Equals("Load", StringComparison.OrdinalIgnoreCase) ||
-                        action.Equals("EditMap", StringComparison.OrdinalIgnoreCase))
+                    // Split comma-separated targets and process each
+                    foreach (string rawPart in SplitTargets(resolved))
                     {
-                        string normalizedTarget =
-                            VanillaFarmMap.Normalize(resolved);
+                        string part = rawPart;
 
-                        if (normalizedTarget.Equals("Maps/FarmHouse",
-                            StringComparison.OrdinalIgnoreCase))
+                        // Check for FarmHouse edits (Load or EditMap)
+                        if (action.Equals("Load", StringComparison.OrdinalIgnoreCase) ||
+                            action.Equals("EditMap", StringComparison.OrdinalIgnoreCase))
                         {
-                            result.EditsFarmHouse = true;
+                            string normalizedPart =
+                                VanillaFarmMap.Normalize(part);
+
+                            if (normalizedPart.Equals("Maps/FarmHouse",
+                                StringComparison.OrdinalIgnoreCase))
+                            {
+                                result.EditsFarmHouse = true;
+                            }
                         }
-                    }
 
-                    // Only look for Load actions for farm map detection
-                    if (!action.Equals("Load", StringComparison.OrdinalIgnoreCase))
-                        continue;
+                        // Only look for Load actions for farm map detection
+                        if (!action.Equals("Load", StringComparison.OrdinalIgnoreCase))
+                            continue;
 
-                    if (resolved.Contains("{{"))
-                    {
-                        Monitor.Log(
-                            $"  Skipping unresolvable target '{target}' in " +
-                            $"{mod.Manifest.Name} - could not resolve all tokens.",
-                            LogLevel.Trace);
-                        continue;
-                    }
-
-                    string normalized = VanillaFarmMap.Normalize(resolved);
-                    if (VanillaFarmMap.IsVanillaFarmMap(normalized))
-                    {
-                        JToken when = change["When"];
-                        if (when != null)
+                        // Skip parts with unresolved tokens
+                        if (part.Contains("{{"))
                         {
                             Monitor.Log(
-                                $"  Found conditional Load targeting '{normalized}' " +
-                                $"in {mod.Manifest.Name} (has When block - may be " +
-                                $"partially scoped).",
+                                $"  Skipping unresolvable target '{part}' in " +
+                                $"{mod.Manifest.Name} - could not resolve all tokens.",
                                 LogLevel.Trace);
+                            continue;
                         }
 
-                        if (!result.FarmTargets.Contains(normalized))
-                            result.FarmTargets.Add(normalized);
+                        string normalized = VanillaFarmMap.Normalize(part);
+                        if (VanillaFarmMap.IsVanillaFarmMap(normalized))
+                        {
+                            JToken when = change["When"];
+                            if (when != null)
+                            {
+                                Monitor.Log(
+                                    $"  Found conditional Load targeting " +
+                                    $"'{normalized}' in {mod.Manifest.Name} " +
+                                    $"(has When block - may be partially scoped).",
+                                    LogLevel.Trace);
+                            }
+
+                            if (!result.FarmTargets.Contains(normalized))
+                                result.FarmTargets.Add(normalized);
+                        }
                     }
                 }
             }
@@ -234,6 +250,28 @@ namespace CPFarmRegistrar
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Splits a CP target string on commas and trims each part.
+        /// CP supports comma-separated targets like "Maps/Farm,Maps"
+        /// which means the asset is loaded to both "Maps/Farm" and "Maps".
+        /// Some mods use this as an aliasing mechanism.
+        /// </summary>
+        private IEnumerable<string> SplitTargets(string target)
+        {
+            if (!target.Contains(","))
+            {
+                yield return target.Trim();
+                yield break;
+            }
+
+            foreach (string part in target.Split(','))
+            {
+                string trimmed = part.Trim();
+                if (!string.IsNullOrEmpty(trimmed))
+                    yield return trimmed;
+            }
         }
 
         /// <summary>

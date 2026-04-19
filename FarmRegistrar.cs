@@ -45,6 +45,13 @@ namespace CPFarmRegistrar
         /// </summary>
         private static DetectedCPFarm SpoofedSelectedFarm = null;
 
+        /// <summary>
+        /// When non-null, a farm has been pre-selected via cpfr_select for
+        /// loading a pre-CPFR save. The patch filter allows this farm's
+        /// patches through even when Game1.whichFarm is a vanilla value.
+        /// </summary>
+        public static DetectedCPFarm PreSelectedFarm = null;
+
         public FarmRegistrar(
             IMonitor monitor,
             IModHelper helper,
@@ -462,11 +469,21 @@ namespace CPFarmRegistrar
             }
 
             // Normal state: check Game1 directly
-            if (Game1.whichFarm != 7)
-                return false;
+            if (Game1.whichFarm == 7)
+            {
+                string currentFarmId = Game1.GetFarmTypeID();
+                return currentFarmId == farm.RegisteredFarmId;
+            }
 
-            string currentFarmId = Game1.GetFarmTypeID();
-            return currentFarmId == farm.RegisteredFarmId;
+            // Pre-selected farm for loading a pre-CPFR save
+            if (PreSelectedFarm != null)
+            {
+                return farm.UniqueModId.Equals(
+                    PreSelectedFarm.UniqueModId,
+                    StringComparison.OrdinalIgnoreCase);
+            }
+
+            return false;
         }
 
         // =====================================================================
