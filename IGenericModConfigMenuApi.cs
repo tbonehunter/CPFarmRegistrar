@@ -15,6 +15,10 @@ namespace CPFarmRegistrar
             Action save,
             bool titleScreenOnly = false);
 
+        void AddParagraph(
+            IManifest mod,
+            Func<string> text);
+
         void AddTextOption(
             IManifest mod,
             Func<string> getValue,

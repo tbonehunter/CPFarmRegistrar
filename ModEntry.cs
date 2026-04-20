@@ -132,6 +132,12 @@ namespace CPFarmRegistrar
                     ApplyConfigPreSelection();
                 });
 
+            gmcmApi.AddParagraph(
+                mod: ModManifest,
+                text: () =>
+                    $"{DetectedFarms.Count} CP farm mod(s) detected. " +
+                    $"Scroll the dropdown to see all options.");
+
             // Build dropdown choices: "None" + each detected farm
             var choices = new List<string> { "None" };
             choices.AddRange(DetectedFarms.Select(f => f.UniqueModId));

@@ -1,7 +1,7 @@
 {
   "Name": "CP Farm Registrar",
   "Author": "tbonehunter",
-  "Version": "1.0.1",
+  "Version": "1.1.0",
   "Description": "Detects Content Patcher farm mods that silently replace vanilla farm maps and registers them as unique selectable farm types, and allows selection of vanilla farm types that those mods would replace.",
   "UniqueID": "tbonehunter.CPFarmRegistrar",
   "EntryDll": "CPFarmRegistrar.dll",
