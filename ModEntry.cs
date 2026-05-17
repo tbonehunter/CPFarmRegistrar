@@ -250,30 +250,100 @@ namespace CPFarmRegistrar
 
         private void OnSaveLoaded(object sender, SaveLoadedEventArgs e)
         {
-            if (FarmRegistrar.PreSelectedFarm == null)
-                return;
-
-            if (!Context.IsMainPlayer)
-                return;
-
-            // If save already uses a CPFR farm, no rescue needed
-            if (Game1.whichFarm == 7)
+            // ---------------------------------------------------------------
+            // Part 1: Pre-CPFR save rescue (host only).
+            // Existing behavior, unchanged.
+            // ---------------------------------------------------------------
+            if (FarmRegistrar.PreSelectedFarm != null && Context.IsMainPlayer)
             {
-                string currentId = Game1.GetFarmTypeID();
-                if (currentId != null &&
-                    currentId.StartsWith("CPFarmRegistrar/",
-                        StringComparison.OrdinalIgnoreCase))
+                // If save already uses a CPFR farm, no rescue needed
+                if (Game1.whichFarm == 7)
                 {
-                    Monitor.Log(
-                        $"Save already uses CPFR farm '{currentId}'. " +
-                        $"Clearing pre-selection.",
-                        LogLevel.Debug);
-                    FarmRegistrar.PreSelectedFarm = null;
-                    return;
+                    string currentId = Game1.GetFarmTypeID();
+                    if (currentId != null &&
+                        currentId.StartsWith("CPFarmRegistrar/",
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        Monitor.Log(
+                            $"Save already uses CPFR farm '{currentId}'. " +
+                            $"Clearing pre-selection.",
+                            LogLevel.Debug);
+                        FarmRegistrar.PreSelectedFarm = null;
+                    }
+                    else
+                    {
+                        ApplyPreSelectedFarmToSave();
+                    }
+                }
+                else
+                {
+                    ApplyPreSelectedFarmToSave();
                 }
             }
 
+            // ---------------------------------------------------------------
+            // Part 2: Establish ActiveSelectedFarm for this session.
+            // Runs on both host and farmhand. This is what lets the patch
+            // filter correctly identify the selected CPFR farm on farmhand
+            // processes, where Game1.whichFarm / whichModFarm may not be
+            // populated at the moment CP evaluates patches during the join.
+            // ---------------------------------------------------------------
+            if (DetectedFarms != null && Game1.whichFarm == 7)
+            {
+                string farmId = Game1.GetFarmTypeID();
+                var activeFarm = DetectedFarms.FirstOrDefault(
+                    f => f.RegisteredFarmId == farmId);
+
+                if (activeFarm != null)
+                {
+                    FarmRegistrar.ActiveSelectedFarm = activeFarm;
+                    Monitor.Log(
+                        $"Active CPFR farm for this session: " +
+                        $"'{activeFarm.ModName}' ({activeFarm.RegisteredFarmId}). " +
+                        $"IsMainPlayer={Context.IsMainPlayer}.",
+                        LogLevel.Info);
+
+                    // ---------------------------------------------------
+                    // Part 3: Force farmhand to re-evaluate its cached
+                    // farm map. The host's loadForNewGame spoof already
+                    // produced the correct map for the host, but the
+                    // farmhand's content cache picked up vanilla because
+                    // the farm type wasn't known at the time CP first
+                    // evaluated patches. Invalidating forces CP to
+                    // re-evaluate, and now IsFarmSelected will return
+                    // true via ActiveSelectedFarm.
+                    // ---------------------------------------------------
+                    if (!Context.IsMainPlayer)
+                    {
+                        string targetAsset = activeFarm.TargetMapAsset;
+                        Helper.GameContent.InvalidateCache(targetAsset);
+                        Monitor.Log(
+                            $"Invalidated {targetAsset} on farmhand to force " +
+                            $"CP re-evaluation of the farm map.",
+                            LogLevel.Info);
+                    }
+                }
+                else
+                {
+                    Monitor.Log(
+                        $"Save uses farm type ID '{farmId}' which is not a " +
+                        $"registered CPFR farm. ActiveSelectedFarm not set.",
+                        LogLevel.Trace);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Applies a pre-selected CPFR farm to a loaded pre-CPFR save.
+        /// Sets Game1.whichFarm to 7 and assigns the matching ModFarmType
+        /// from Data/AdditionalFarms. Player must save the game afterward
+        /// for the change to persist.
+        /// </summary>
+        private void ApplyPreSelectedFarmToSave()
+        {
             var farm = FarmRegistrar.PreSelectedFarm;
+            if (farm == null)
+                return;
 
             try
             {
@@ -321,6 +391,7 @@ namespace CPFarmRegistrar
         private void OnReturnedToTitle(object sender, ReturnedToTitleEventArgs e)
         {
             FarmRegistrar.PreSelectedFarm = null;
+            FarmRegistrar.ActiveSelectedFarm = null;
         }
     }
 }

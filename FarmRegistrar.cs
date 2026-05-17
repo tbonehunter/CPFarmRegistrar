@@ -52,6 +52,17 @@ namespace CPFarmRegistrar
         /// </summary>
         public static DetectedCPFarm PreSelectedFarm = null;
 
+        /// <summary>
+        /// The CPFR farm active for the current loaded session, on both host
+        /// and farmhands. Set after SaveLoaded confirms Game1.whichFarm == 7
+        /// and the farm type ID matches a registered CPFR farm. Used by the
+        /// patch filter when SpoofedSelectedFarm and PreSelectedFarm are null
+        /// and live Game1 state can't be trusted (e.g., during farmhand load
+        /// before the host has sent the farm type info).
+        /// Cleared on ReturnedToTitle.
+        /// </summary>
+        public static DetectedCPFarm ActiveSelectedFarm = null;
+
         public FarmRegistrar(
             IMonitor monitor,
             IModHelper helper,
@@ -375,6 +386,18 @@ namespace CPFarmRegistrar
 
             try
             {
+                // === DIAGNOSTIC LOGGING (multiplayer triage) ===
+                Instance.Monitor.Log(
+                    $"[DIAG] LoadForNewGame_Prefix entry: " +
+                    $"whichFarm={Game1.whichFarm}, " +
+                    $"FarmTypeID='{Game1.GetFarmTypeID() ?? "<null>"}', " +
+                    $"whichModFarm.Id='{Game1.whichModFarm?.Id ?? "<null>"}', " +
+                    $"IsMasterGame={Game1.IsMasterGame}, " +
+                    $"IsMainPlayer={Context.IsMainPlayer}, " +
+                    $"ScreenId={Context.ScreenId}",
+                    LogLevel.Trace);
+                // === END DIAGNOSTIC LOGGING ===
+
                 SpoofedSelectedFarm = null;
 
                 if (Game1.whichFarm != 7)
@@ -453,14 +476,36 @@ namespace CPFarmRegistrar
 
         /// <summary>
         /// Checks whether the given farm is the currently selected farm.
-        /// Handles both normal state and the loadForNewGame spoof state.
-        /// During a spoof, Game1.whichFarm is temporarily a vanilla value
-        /// and GetFarmTypeID() won't return our ID, so we check against
-        /// the stored SpoofedSelectedFarm reference instead.
+        /// Consulted in this priority order:
+        /// 1. SpoofedSelectedFarm — host's loadForNewGame spoof in progress.
+        /// 2. ActiveSelectedFarm — session-cached selection, set by SaveLoaded.
+        ///    This is what lets farmhands correctly identify the selected farm
+        ///    after they've received the host's state.
+        /// 3. Live Game1 state — fallback for transient moments early in load
+        ///    when ActiveSelectedFarm isn't set yet but Game1 is correct
+        ///    (e.g., the host's own load flow before SaveLoaded fires).
+        /// 4. PreSelectedFarm — pre-CPFR save rescue.
         /// </summary>
         private static bool IsFarmSelected(DetectedCPFarm farm)
         {
-            // During a loadForNewGame spoof, use the stored reference
+            // === DIAGNOSTIC LOGGING (multiplayer triage) ===
+            if (Instance != null)
+            {
+                Instance.Monitor.Log(
+                    $"[DIAG] IsFarmSelected('{farm.UniqueModId}'): " +
+                    $"whichFarm={Game1.whichFarm}, " +
+                    $"FarmTypeID='{Game1.GetFarmTypeID() ?? "<null>"}', " +
+                    $"whichModFarm.Id='{Game1.whichModFarm?.Id ?? "<null>"}', " +
+                    $"SpoofedSelectedFarm='{SpoofedSelectedFarm?.UniqueModId ?? "<null>"}', " +
+                    $"ActiveSelectedFarm='{ActiveSelectedFarm?.UniqueModId ?? "<null>"}', " +
+                    $"PreSelectedFarm='{PreSelectedFarm?.UniqueModId ?? "<null>"}', " +
+                    $"IsMainPlayer={Context.IsMainPlayer}, " +
+                    $"ScreenId={Context.ScreenId}",
+                    LogLevel.Trace);
+            }
+            // === END DIAGNOSTIC LOGGING ===
+
+            // 1. During a loadForNewGame spoof, use the stored reference.
             if (SpoofedSelectedFarm != null)
             {
                 return farm.UniqueModId.Equals(
@@ -468,14 +513,24 @@ namespace CPFarmRegistrar
                     StringComparison.OrdinalIgnoreCase);
             }
 
-            // Normal state: check Game1 directly
+            // 2. Session-cached active farm (set by SaveLoaded on both host
+            //    and farmhand). This is the multiplayer-correct answer once
+            //    the save's farm type is known to this process.
+            if (ActiveSelectedFarm != null)
+            {
+                return farm.UniqueModId.Equals(
+                    ActiveSelectedFarm.UniqueModId,
+                    StringComparison.OrdinalIgnoreCase);
+            }
+
+            // 3. Live Game1 state fallback.
             if (Game1.whichFarm == 7)
             {
                 string currentFarmId = Game1.GetFarmTypeID();
                 return currentFarmId == farm.RegisteredFarmId;
             }
 
-            // Pre-selected farm for loading a pre-CPFR save
+            // 4. Pre-selected farm for loading a pre-CPFR save.
             if (PreSelectedFarm != null)
             {
                 return farm.UniqueModId.Equals(
