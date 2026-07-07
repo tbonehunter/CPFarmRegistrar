@@ -10,6 +10,8 @@
   <ItemGroup>
     <None Remove=".gitignore" />
     <None Remove="CPFarmRegistrar.code-workspace" />
+    <None Remove="cpfarmregistrarcode.zip" />
+    <None Remove="SMAPI-latest.txt" />
     <None Remove="docs\**" />
   </ItemGroup>
 

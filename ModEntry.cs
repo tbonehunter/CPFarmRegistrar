@@ -65,6 +65,14 @@ namespace CPFarmRegistrar
             Registrar = new FarmRegistrar(Monitor, Helper, DetectedFarms);
             Registrar.Initialize(ModManifest.UniqueID);
 
+                        // Apply the CharacterCustomization highlight fix
+            // (vanilla bug workaround for the paginated farm-selection
+            // menu — see CharacterCustomizationHighlightFix.cs for full
+            // context and diagnosis).
+            CharacterCustomizationHighlightFix.Apply(
+                $"{ModManifest.UniqueID}.HighlightFix",
+                Monitor);
+
             // Register the save rescue console command
             Rescue = new SaveRescue(Monitor, Helper, DetectedFarms);
             Rescue.RegisterCommand();
